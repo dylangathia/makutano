@@ -1,0 +1,120 @@
+# Copy to config/site.yaml and replace every placeholder with values for your
+# junction. Pixel coordinates come from `python -m makutano.pick_points`.
+# All the numbers below are placeholders for a 1920x1080 frame.
+
+site:
+  name: "Example junction"            # placeholder
+  video_start: "2026-10-20T07:00:00"  # wall-clock time of the first frame, for labelling intervals
+
+homography:
+  # Ground control points: features visible in the video that you can also find
+  # on satellite imagery (lane-marking corners, kerb corners, drain covers).
+  # Use 6 or more, spread across the whole area you will measure, not in a line.
+  image_points:
+    - [412, 870]
+    - [1505, 860]
+    - [1290, 455]
+    - [655, 460]
+    - [960, 640]
+    - [240, 600]
+  ground_units: latlon   # latlon (from Google Earth) or metres
+  ground_points:         # [lat, lon], same order as image_points
+    - [-1.283310, 36.821850]
+    - [-1.283330, 36.822120]
+    - [-1.283050, 36.822100]
+    - [-1.283030, 36.821880]
+    - [-1.283180, 36.821990]
+    - [-1.283120, 36.821780]
+
+indicators:
+  interval_s: 900            # 15-minute reporting intervals
+  min_track_frames: 10       # drop tracks shorter than this (mostly false positives)
+  smooth_frames: 7           # position smoothing window, in processed frames
+  free_flow_speed_mps:       # used for delay; measure it from off-peak footage
+    default: 11.1            # 40 km/h
+    boda_boda: 12.5
+  queue_speed_mps: 1.4       # slower than ~5 km/h counts as queued
+  queue_sample_s: 1.0
+
+# Area where delay and speed are measured: from just before the stop lines to
+# just after the junction exits. Clip the SUMO network to roughly the same area.
+study_zone: [[300, 1000], [1700, 1000], [1450, 380], [500, 380]]
+
+# Approach names must not contain "__" or ".".
+# entry_zone: a short gate on the approach, near the stop line, that vehicles
+#             entering the junction from this approach pass through
+# exit_zone:  a gate on the departure side of the same road
+# queue_zone: the approach lanes upstream of the stop line, as far back as the
+#             camera can see clearly
+# stop_line:  two points across the stop line
+approaches:
+  north:
+    entry_zone: [[1000, 400], [1150, 400], [1160, 440], [1005, 440]]
+    exit_zone: [[820, 400], [980, 400], [980, 440], [815, 440]]
+    queue_zone: [[1000, 300], [1120, 300], [1160, 440], [1005, 440]]
+    stop_line: [[1005, 440], [1160, 440]]
+    sumo_from_edge: "north_in"   # SUMO edge ids from your .net.xml
+    sumo_to_edge: "north_out"
+  south:
+    entry_zone: [[700, 900], [920, 900], [920, 960], [680, 960]]
+    exit_zone: [[960, 900], [1200, 900], [1220, 960], [960, 960]]
+    queue_zone: [[680, 900], [920, 900], [930, 1075], [620, 1075]]
+    stop_line: [[700, 900], [920, 900]]
+    sumo_from_edge: "south_in"
+    sumo_to_edge: "south_out"
+  east:
+    entry_zone: [[1450, 700], [1520, 700], [1540, 820], [1470, 820]]
+    exit_zone: [[1420, 560], [1490, 560], [1500, 680], [1440, 680]]
+    queue_zone: [[1450, 700], [1800, 700], [1880, 820], [1470, 820]]
+    stop_line: [[1450, 700], [1470, 820]]
+    sumo_from_edge: "east_in"
+    sumo_to_edge: "east_out"
+  west:
+    entry_zone: [[420, 520], [490, 520], [470, 640], [400, 640]]
+    exit_zone: [[400, 660], [470, 660], [450, 780], [380, 780]]
+    queue_zone: [[120, 520], [490, 520], [470, 640], [60, 640]]
+    stop_line: [[490, 520], [470, 640]]
+    sumo_from_edge: "west_in"
+    sumo_to_edge: "west_out"
+    # sumo_queue_edges: ["west_in", "west_in_upstream"]  # if the approach is split into several edges
+
+sumo:
+  net_file: sumo/junction.net.xml
+  lateral_resolution: 0.8     # sublane model: needed for boda bodas filtering between cars
+  time_to_teleport: 300
+  additional_files: []        # e.g. [sumo/observed_signals.add.xml, sumo/matatu_stops.add.xml]
+  # These are the parameters calibration adjusts. Start from these, then fit them.
+  vtypes:
+    private_car:
+      vClass: passenger
+      length: 4.5
+      minGap: 1.5
+      maxSpeed: 16.7
+      speedDev: 0.1
+      sigma: 0.5
+    boda_boda:
+      vClass: motorcycle
+      length: 2.0
+      width: 0.8
+      minGap: 0.5
+      minGapLat: 0.3
+      latAlignment: arbitrary
+      lcSublane: 2.0
+      lcPushy: 0.5
+      maxSpeed: 16.7
+      speedDev: 0.15
+    bus_matatu:               # 14-seater matatus are ~5.5 m; 33-seaters closer to 8 m
+      vClass: bus
+      length: 5.5
+      width: 2.0
+      minGap: 1.0
+      maxSpeed: 16.7
+      speedDev: 0.1
+    truck:
+      vClass: truck
+      length: 8.0
+      minGap: 2.0
+      maxSpeed: 13.9
+    bicycle:
+      vClass: bicycle
+      latAlignment: right

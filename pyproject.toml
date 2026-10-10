@@ -1,0 +1,9 @@
+[project]
+name = "makutano"
+version = "0.1.0"
+description = "Video-driven digital twin of a Nairobi traffic intersection"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
