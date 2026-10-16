@@ -1,7 +1,7 @@
 [project]
 name = "makutano"
 version = "0.1.0"
-description = "Video-driven digital twin of a Nairobi traffic intersection"
+description = "Video-driven ML pipeline (see, predict, control) for adaptive signal control at a Nairobi intersection"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

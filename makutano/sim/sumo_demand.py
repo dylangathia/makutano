@@ -1,6 +1,6 @@
 """Write a SUMO route file from measured movement volumes.
 
-    python -m makutano.sumo_demand --config config/site.yaml \
+    python -m makutano.sim.sumo_demand --config config/site.yaml \
         --volumes outputs/pilot/movement_volumes.csv --out sumo/pilot.rou.xml
 
 Each (interval, entry, exit, class) count becomes one <flow> from the entry
@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .config import load_config
+from ..config import load_config
 
 
 def flow_id(entry, exit_, cls, begin):
@@ -67,7 +67,7 @@ def build_routes(volumes, cfg, interval_s, scale=1.0, arrivals="uniform"):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--config", required=True)
-    p.add_argument("--volumes", required=True, help="movement_volumes.csv from makutano.indicators")
+    p.add_argument("--volumes", required=True, help="movement_volumes.csv from makutano.see.measure")
     p.add_argument("--out", required=True)
     p.add_argument("--scale", type=float, default=1.0, help="multiply all counts, e.g. for demand scenarios")
     p.add_argument("--arrivals", choices=["uniform", "poisson"], default="uniform")

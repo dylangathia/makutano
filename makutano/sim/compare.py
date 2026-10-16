@@ -1,6 +1,6 @@
 """Compare simulated indicators with measured ones.
 
-    python -m makutano.compare --config config/site.yaml \
+    python -m makutano.sim.compare --config config/site.yaml \
         --measured outputs/pilot --sim outputs/pilot/sim
 
 Volumes are checked with the GEH statistic on hourly-equivalent flows per
@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .config import load_config
+from ..config import load_config
 
 # Two-sided 95% Student t critical values by degrees of freedom.
 T95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306,
@@ -80,8 +80,8 @@ def compare_metric(measured, sim, keys, value, n_seeds):
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--config", required=True)
-    p.add_argument("--measured", required=True, help="directory written by makutano.indicators")
-    p.add_argument("--sim", required=True, help="directory written by makutano.run_sim")
+    p.add_argument("--measured", required=True, help="directory written by makutano.see.measure")
+    p.add_argument("--sim", required=True, help="directory written by makutano.sim.run_sim")
     p.add_argument("--geh-threshold", type=float, default=5.0)
     args = p.parse_args()
 

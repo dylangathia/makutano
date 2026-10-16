@@ -1,6 +1,6 @@
 """Turn tracks into intersection indicators.
 
-    python -m makutano.indicators --config config/site.yaml \
+    python -m makutano.see.measure --config config/site.yaml \
         --tracks outputs/pilot/tracks.csv --out outputs/pilot
 
 Writes, per interval:
@@ -10,6 +10,11 @@ Writes, per interval:
   speeds.csv            space-mean speed in the study zone by class
   queues.csv            mean and max queue length per approach
 and passes.csv, one row per tracked vehicle, for checking the numbers by eye.
+
+It also writes series.csv: arrivals and queue length per approach in short
+steps (series_step_s, default 5 s). This is the input to the prediction
+module. Pass --start with the wall-clock time of the first frame so the
+series carries real timestamps; the predictor needs time of day and date.
 
 Definitions (state these in the report):
   delay        = time inside the study zone - path length / free-flow speed
@@ -25,7 +30,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .config import load_config
+from ..config import load_config
 from .homography import homography_from_config, to_ground
 
 PEDESTRIAN = "pedestrian"
@@ -203,7 +208,49 @@ def summarise(passes, queues, interval_s):
             "delay": delay, "speeds": speeds, "queues": queue}
 
 
-def compute(tracks, cfg):
+def arrival_times(df, passes, cfg):
+    """When each vehicle first appears on its approach.
+
+    That is its first point inside the approach's queue zone, which reaches as
+    far upstream as the camera sees. This is demand, unlike the stop-line time,
+    which the signal controls. Falls back to the stop-line time without a zone.
+    """
+    out = passes["t_entry"].copy()
+    uv = df[["u", "v"]].to_numpy()
+    for name, a in cfg["approaches"].items():
+        if "queue_zone" not in a:
+            continue
+        first = df.loc[points_in_polygon(uv, a["queue_zone"]), ["track_id", "t_s"]].groupby("track_id")["t_s"].min()
+        mask = passes["entry"] == name
+        t = passes.loc[mask, "track_id"].map(first)
+        out.loc[mask] = np.minimum(t.fillna(passes.loc[mask, "t_entry"]), passes.loc[mask, "t_entry"])
+    return out
+
+
+def approach_series(passes, queues, approaches, t_end, step_s, start=None):
+    """Arrivals and queue length per approach in fixed time steps.
+
+    An arrival is a vehicle first appearing on the approach (t_arrival); queue
+    length is the largest queue seen in the step. Steps with nothing seen
+    count as zero.
+    """
+    steps = np.arange(int(np.floor(t_end / step_s)) + 1)
+    rows = []
+    for name in approaches:
+        t_in = passes.loc[passes["entry"] == name, "t_arrival"].to_numpy()
+        arrivals = np.bincount(np.floor(t_in / step_s).astype(int), minlength=len(steps))[:len(steps)]
+        q = queues[queues["approach"] == name]
+        queue = (q.groupby(np.floor(q["t_s"].to_numpy() / step_s).astype(int))["queue_m"].max()
+                 .reindex(steps, fill_value=0.0).to_numpy())
+        rows.append(pd.DataFrame({"t_s": steps * step_s, "approach": name,
+                                  "arrivals": arrivals, "queue_m": queue}))
+    series = pd.concat(rows, ignore_index=True)
+    if start is not None:
+        series["timestamp"] = pd.Timestamp(start) + pd.to_timedelta(series["t_s"], unit="s")
+    return series
+
+
+def compute(tracks, cfg, start=None):
     ind = cfg["indicators"]
     H = homography_from_config(cfg)
     free_flow = ind["free_flow_speed_mps"]
@@ -211,9 +258,12 @@ def compute(tracks, cfg):
         free_flow = {"default": free_flow}
     df = prepare_tracks(tracks, H, ind.get("min_track_frames", 10), ind.get("smooth_frames", 7))
     passes = vehicle_passes(df, cfg, free_flow)
+    passes["t_arrival"] = arrival_times(df[df["cls"] != PEDESTRIAN], passes, cfg)
     queues = queue_samples(df, cfg, H, ind.get("queue_sample_s", 1.0), ind.get("queue_speed_mps", 1.4))
     tables = summarise(passes, queues, ind["interval_s"])
     tables["passes"] = passes
+    tables["series"] = approach_series(passes, queues, cfg["approaches"], df["t_s"].max(),
+                                       ind.get("series_step_s", 5), start)
     return tables
 
 
@@ -222,9 +272,11 @@ def main():
     p.add_argument("--config", required=True)
     p.add_argument("--tracks", required=True)
     p.add_argument("--out", required=True, help="directory for the indicator CSVs")
+    p.add_argument("--start", default=None,
+                   help="wall-clock time of the first frame, e.g. 2026-10-20T07:00:00")
     args = p.parse_args()
 
-    tables = compute(pd.read_csv(args.tracks), load_config(args.config))
+    tables = compute(pd.read_csv(args.tracks), load_config(args.config), args.start)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     for name, table in tables.items():

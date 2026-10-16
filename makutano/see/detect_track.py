@@ -1,6 +1,6 @@
 """Detect and track road users in a video, writing one row per box per frame.
 
-    python -m makutano.detect_track --video data/raw/pilot.mp4 --out outputs/pilot/tracks.csv
+    python -m makutano.see.detect_track --video data/raw/pilot.mp4 --out outputs/pilot/tracks.csv
 
 With the default pre-trained COCO weights, COCO classes are mapped onto the
 project's classes. COCO has no matatu class, so matatus come out as

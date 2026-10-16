@@ -1,5 +1,5 @@
 # Copy to config/site.yaml and replace every placeholder with values for your
-# junction. Pixel coordinates come from `python -m makutano.pick_points`.
+# junction. Pixel coordinates come from `python -m makutano.see.pick_points`.
 # All the numbers below are placeholders for a 1920x1080 frame.
 
 site:
@@ -35,6 +35,7 @@ indicators:
     boda_boda: 12.5
   queue_speed_mps: 1.4       # slower than ~5 km/h counts as queued
   queue_sample_s: 1.0
+  series_step_s: 5           # step of series.csv, the prediction module's input; keep equal to control.decision_interval_s
 
 # Area where delay and speed are measured: from just before the stop lines to
 # just after the junction exits. Clip the SUMO network to roughly the same area.
@@ -118,3 +119,53 @@ sumo:
     bicycle:
       vClass: bicycle
       latAlignment: right
+
+# ---------- Module 2: Predict ----------
+predict:
+  val_days: 1                 # most recent days held out: 1 for choosing a model...
+  test_days: 1                # ...and 1 for the final score. Record on at least 3 different days.
+
+# ---------- Module 3: Control ----------
+control:
+  tls_id: "J1"                # traffic light id in the SUMO network (placeholder)
+  # Green phases, as indexes into the network's signal program. Each green must
+  # be followed by its amber phase (index + 1), as netconvert writes them.
+  green_phases: [0, 2, 4, 6]
+  phase_approaches:           # approaches served by each green phase, same order
+    - [north, south]          # north-south through
+    - [north, south]          # north-south right turns
+    - [east, west]            # east-west through
+    - []                      # pedestrians only
+  ped_phase: 3                # index into phase_approaches, or null
+  decision_interval_s: 5      # the agent decides every 5 s
+  sim_start: "2026-10-20T07:00:00"   # clock time of simulation second 0 (time-of-day features)
+  episode_minutes: 120
+  camera_range_m: 80          # the controller only sees this far back from each stop line
+  observation_noise:          # set from the validated error of the video measurements
+    queue_rel_sd: 0.10
+    arrival_rel_sd: 0.10
+  shield:
+    min_green_s: 10
+    max_green_s: 60
+    yellow_s: 3
+    all_red_s: 2
+    max_wait_s: 120
+    ped_max_wait_s: 90
+  fallback_greens_s: [30, 12, 26, 12]   # re-timed plan used if the camera fails; copy from makutano.control.webster
+  saturation_flow_veh_h_lane: 1800       # for Webster timing; check against Nairobi mixed traffic
+  rule_weights: {w_queue: 1.0, w_wait: 0.5, w_ped: 5.0}
+  reward: {pedestrian_weight: 1.0}
+  eval_seeds: 20
+
+# Scenarios for makutano.control.experiments. "stress" marks the high-pressure tests,
+# which the agent never sees in training. Times are seconds from simulation start.
+scenarios:
+  baseline: {}
+  demand_minus_20: {demand_scale: 0.8}
+  demand_plus_20: {demand_scale: 1.2}
+  heavy_40: {demand_scale: 1.4, stress: true}
+  heavy_60: {demand_scale: 1.6, stress: true}
+  surge_north: {surge: {approach: north, start_s: 2700, duration_s: 900, factor: 2.0}, stress: true}
+  blocked_lane: {lane_block: {lane: "east_in_0", start_s: 2700, duration_s: 1200}, stress: true}
+  pedestrian_surge: {ped_scale: 3.0, stress: true}
+  camera_failure: {camera_outage: {start_s: 2700, duration_s: 300}, stress: true}

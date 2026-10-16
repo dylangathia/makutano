@@ -6,5 +6,6 @@ __pycache__/
 # Raw footage contains identifiable people and plates: never commit it.
 data/raw/
 outputs/
+models/
 runs/
 *.pt

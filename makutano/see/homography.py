@@ -3,14 +3,14 @@
 Run as a script to check how good the fit is before trusting any speed or
 queue-length number:
 
-    python -m makutano.homography --config config/site.yaml
+    python -m makutano.see.homography --config config/site.yaml
 """
 import argparse
 
 import cv2
 import numpy as np
 
-from .config import load_config
+from ..config import load_config
 
 EARTH_RADIUS_M = 6_371_000.0
 

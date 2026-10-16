@@ -3,7 +3,7 @@
 Use it to read off pixel coordinates for ground control points, zones and stop
 lines in config/site.yaml.
 
-    python -m makutano.pick_points --video data/raw/pilot.mp4 --time 30
+    python -m makutano.see.pick_points --video data/raw/pilot.mp4 --time 30
 
 Left click adds a point, `u` undoes, `c` prints and clears (start the next
 polygon), `q` prints and quits.

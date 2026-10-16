@@ -1,10 +1,10 @@
 """Run the SUMO model over several seeds and tabulate simulated indicators.
 
-    python -m makutano.run_sim --config config/site.yaml \
+    python -m makutano.sim.run_sim --config config/site.yaml \
         --routes sumo/pilot.rou.xml --out outputs/pilot/sim --seeds 10
 
 Writes sim_volumes.csv, sim_delay.csv and sim_queues.csv with a `seed`
-column, in the same shape as the measured tables so makutano.compare can line
+column, in the same shape as the measured tables so makutano.sim.compare can line
 them up. Simulated delay is SUMO's timeLoss, which matches the measured delay
 definition only if the network is clipped to roughly the camera's study zone.
 """
@@ -18,8 +18,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .config import load_config
-from .indicators import interval_start
+from ..config import load_config
+from ..see.measure import interval_start
 from .sumo_demand import parse_flow_id
 
 

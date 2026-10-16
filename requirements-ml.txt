@@ -1,0 +1,7 @@
+# Prediction (GRU) and control (reinforcement learning). Pulls in PyTorch.
+# SUMO itself is installed separately (https://sumo.dlr.de); set SUMO_HOME so
+# TraCI can be imported, or add `traci` here.
+-r requirements.txt
+torch>=2.2
+gymnasium>=0.29
+stable-baselines3>=2.3

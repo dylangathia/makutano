@@ -1,13 +1,13 @@
-"""Checks on synthetic data, runnable without a GPU, video or SUMO."""
+"""Module 1 (See) and the SUMO tools, on synthetic data: no GPU, video or SUMO needed."""
 import numpy as np
 import pandas as pd
 import pytest
 
-from makutano.compare import geh, seed_summary
-from makutano.homography import fit_homography, latlon_to_local, leave_one_out_errors, to_ground
-from makutano.indicators import compute, drop_riders, points_in_polygon
-from makutano.run_sim import parse_queues, parse_tripinfo
-from makutano.sumo_demand import build_routes, parse_flow_id
+from makutano.see.homography import fit_homography, latlon_to_local, leave_one_out_errors, to_ground
+from makutano.see.measure import compute, drop_riders, points_in_polygon
+from makutano.sim.compare import geh, seed_summary
+from makutano.sim.run_sim import parse_queues, parse_tripinfo
+from makutano.sim.sumo_demand import build_routes, parse_flow_id
 
 FPS = 10.0
 
@@ -95,6 +95,16 @@ def test_indicators_on_synthetic_tracks(cfg):
 
     q = out["queues"].query("approach == 'south'")
     assert q["max_queue_m"].iat[0] == pytest.approx(8.0, abs=0.1)
+
+    # Car 1 is first seen in the south queue zone at t = 0, before it reaches the
+    # stop-line gate, so it arrives in the first 5-second step.
+    assert passes.loc[1, "t_arrival"] == pytest.approx(0.0)
+    assert passes.loc[1, "t_arrival"] < passes.loc[1, "t_entry"]
+    s = out["series"]
+    south = s[s["approach"] == "south"]
+    assert south["arrivals"].sum() == 1 and south["arrivals"].iat[0] == 1
+    assert south["queue_m"].max() == pytest.approx(8.0, abs=0.1)
+    assert s[s["approach"] == "north"]["arrivals"].sum() == 0
 
 
 def test_routes_round_trip(cfg):
