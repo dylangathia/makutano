@@ -1,0 +1,3 @@
+# Live console (python -m makutano.live): web server and WebSocket support
+fastapi>=0.110
+uvicorn[standard]>=0.29

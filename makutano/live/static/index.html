@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Makutano Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><h1>MAKUTANO</h1><span class="site">Pilot junction · Nairobi CBD</span></div>
+    <div class="conn" id="conn"><i class="dot warn"></i><span>Connecting…</span></div>
+    <div class="clock"><span>Sim time</span><span class="t" id="clock">--:--:--</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="pipe">
+    <div class="stage"><i class="dot" id="dotSee"></i><b>SEE</b><span id="pipeSee">YOLO + ByteTrack</span></div>
+    <div class="stage"><i class="dot"></i><b>PREDICT</b><span id="pipePredict">Forecaster · 1 / 5 / 15 min ahead</span></div>
+    <div class="stage"><i class="dot"></i><b>CONTROL</b><span id="pipeControl">Controller behind safety shield</span></div>
+  </div>
+
+  <div class="live">
+    <div class="left">
+      <div class="feed">
+        <canvas id="cam" aria-label="Overhead camera view of the junction with vehicle detections"></canvas>
+        <div class="hud tl"><span class="rec">●</span> CAM 01 · <span id="hudTime">--:--:--</span></div>
+        <div class="hud tr">YOLOv8s-ft · ByteTrack · 25 fps</div>
+        <div class="hud bl" id="hudCounts">—</div>
+        <div class="nosignal" id="nosignal" hidden><div><b>NO SIGNAL · CAM 01</b><span>Detections lost. The controller is running on the forecast and time-of-day profile.</span></div></div>
+        <div class="offline" id="offline" hidden><div><b>Server not reachable</b><span>Start it with <code>python -m makutano.live</code>. This page reconnects by itself.</span></div></div>
+      </div>
+
+      <div class="controls">
+        <div class="ctlrow"><span class="eyebrow">Controller</span><div class="seg" id="ctrlSeg" role="group" aria-label="Controller"></div></div>
+        <div class="ctlrow"><span class="eyebrow">Scenario</span><div class="chips" id="scenChips" role="group" aria-label="Scenario"></div></div>
+        <div class="ctlrow"><span class="eyebrow">Playback</span>
+          <button class="btn" id="playBtn">Pause</button>
+          <div class="seg" id="speedSeg" role="group" aria-label="Speed">
+            <button data-x="1" aria-pressed="false">1×</button>
+            <button data-x="3" aria-pressed="true">3×</button>
+            <button data-x="10" aria-pressed="false">10×</button>
+          </div>
+          <button class="btn" id="resetBtn">Restart at 07:20</button>
+          <label class="tog"><input type="checkbox" id="optBoxes" checked> Detections</label>
+          <label class="tog"><input type="checkbox" id="optZones" checked> Zones</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <section class="panel">
+        <header><h3>Signal</h3><span class="sub" id="ctrlName">—</span></header>
+        <div class="sig">
+          <div class="heads">
+            <div class="head"><span class="ax">N–S</span><span class="lamp" id="lampNS"><i class="r"></i><i class="a"></i><i class="g"></i></span><span class="st" id="stNS">—</span></div>
+            <div class="head"><span class="ax">E–W</span><span class="lamp" id="lampEW"><i class="r"></i><i class="a"></i><i class="g"></i></span><span class="st" id="stEW">—</span></div>
+          </div>
+          <div class="decision">
+            <div class="eyebrow" id="decLabel">Controller output</div>
+            <div class="big" id="decBig">—</div>
+            <div class="pbar"><i id="decBar"></i></div>
+            <div class="why" id="decWhy">—</div>
+          </div>
+        </div>
+        <div class="shield" id="shield"></div>
+      </section>
+
+      <section class="panel">
+        <header><h3>Queues</h3><span class="sub">vehicles · longest wait</span></header>
+        <div id="queues"></div>
+      </section>
+
+      <section class="panel">
+        <header><h3>Forecast arrivals</h3><span class="sub" id="fcSub">vehicles in the next…</span></header>
+        <div class="frow fhead"><span></span><span>last 15 min · next 15 min</span><span class="v">1 min</span><span class="v">5 min</span><span class="v">15 min</span></div>
+        <div id="forecast"></div>
+      </section>
+
+      <section class="panel">
+        <header><h3>This run</h3><span class="sub" id="runSub">—</span></header>
+        <div class="kpis">
+          <div class="kpi"><div class="k">Avg delay</div><div class="v" id="kDelay">—</div></div>
+          <div class="kpi"><div class="k">Throughput</div><div class="v" id="kThru">—</div></div>
+          <div class="kpi"><div class="k">Ped wait</div><div class="v" id="kPed">—</div></div>
+          <div class="kpi"><div class="k">Served</div><div class="v" id="kServed">—</div></div>
+        </div>
+        <table class="score"><thead><tr><th>Controller · scenario</th><th class="num">Sim min</th><th class="num">Avg delay</th></tr></thead><tbody id="scoreBody"></tbody></table>
+        <p class="note" id="scoreNote">Switch controller or scenario to compare. Each run of 3 minutes or more is kept here.</p>
+      </section>
+
+      <section class="panel">
+        <header><h3>Events</h3></header>
+        <ul class="log" id="log"></ul>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="wrap">Makutano · UoN final-year project 2026/27 · The junction is simulated by makutano.live; signals pass through makutano.control.shield.SafetyShield.</footer>
+<div id="tip" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

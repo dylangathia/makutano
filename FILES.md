@@ -49,16 +49,28 @@ control:  webster ─► comparison plans ; scenarios ─► training and stress
 | [run_sim.py](makutano/sim/run_sim.py) | Runs SUMO over several random seeds and tabulates simulated indicators shaped like the measured ones | network, routes, config | `sim_volumes.csv`, `sim_delay.csv`, `sim_queues.csv` |
 | [compare.py](makutano/sim/compare.py) | Scores simulation against measurement: GEH per movement, % error for delay and queue length, confidence intervals over seeds. This is the calibration and validation check | measured and simulated tables | `compare_*.csv` |
 
+## Live console (`makutano/live/`)
+
+| File | What it does |
+|---|---|
+| [layout.py](makutano/live/layout.py) | Junction geometry in metres: lanes (traffic keeps left), stop lines, zebra crossings, and a route polyline for every movement |
+| [engine.py](makutano/live/engine.py) | Built-in traffic simulation standing in for SUMO: car following, stopping for red and amber, giving way to pedestrians, right-turners waiting for a gap, a blocked-lane incident |
+| [controllers.py](makutano/live/controllers.py) | Today's plan, Webster, rule-based (uses `control/rule_based.py`) and a stand-in for the RL agent; each asks for a phase |
+| [session.py](makutano/live/session.py) | One live run: demand from the time-of-day profile and scenario, forecasts, decisions through `control/shield.py`, statistics and the event log |
+| [server.py](makutano/live/server.py) | FastAPI app: streams frames over `/ws`, takes commands, serves the frontend; `/api/layout`, `/api/state`, `/api/command` |
+| [static/](makutano/live/static/) | The browser console (`index.html`, `style.css`, `app.js`): camera view with detections, signal, queues, forecasts, run comparison |
+
 ## Other files
 
 | File | What it does |
 |---|---|
 | [makutano/config.py](makutano/config.py) | Loads the YAML config and checks approach names (they are encoded into SUMO vehicle ids, so no `__` or `.`) |
 | [config/site.example.yaml](config/site.example.yaml) | Template for a junction: ground control points, zones, SUMO edges and vehicle types, plus the `predict`, `control` and `scenarios` sections. Every value is a placeholder |
-| [tests/](tests/) | Synthetic checks per module (`test_see_sim.py`, `test_predict.py`, `test_control.py`); run with `python -m pytest`. No video, GPU or SUMO needed |
+| [tests/](tests/) | Synthetic checks per module (`test_see_sim.py`, `test_predict.py`, `test_control.py`, `test_live.py`); run with `python -m pytest`. No video, GPU or SUMO needed |
 | [requirements.txt](requirements.txt) | Core packages, including scikit-learn for the gradient-boosting forecaster |
 | [requirements-detect.txt](requirements-detect.txt) | Adds Ultralytics (and PyTorch) for detection; install where there's a GPU |
 | [requirements-ml.txt](requirements-ml.txt) | Adds PyTorch, Gymnasium and Stable-Baselines3 for the GRU and the RL agent |
+| [requirements-live.txt](requirements-live.txt) | Adds FastAPI and Uvicorn for the live console |
 | [docs/Makutano_Proposal.docx](docs/Makutano_Proposal.docx) | The project proposal |
 | [README.md](README.md) | Setup and the full workflow, module by module |
 | [.gitignore](.gitignore) | Keeps the virtual environment, outputs, model weights and raw footage out of git |

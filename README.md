@@ -131,12 +131,43 @@ baseline is the one the controller uses.
    - **does prediction help?** `rl` minus `rl_nopred`,
    - **how do controllers cope under pressure?** the stress scenarios, including `clear_time_s`.
 
+## Live console
+
+A browser view of the junction running in real time: vehicles moving, signals
+switched by the chosen controller through the safety shield, queues,
+forecasts and an event log. Use it for demos and as the front end the real
+pipeline will feed.
+
+```powershell
+pip install -r requirements-live.txt
+python -m makutano.live          # open http://127.0.0.1:8000
+```
+
+- **Backend** (`makutano/live/`): a small built-in traffic simulation (left-hand
+  traffic, turning movements, right-turners giving way, pedestrians on the
+  zebras) stands in for SUMO, so it runs on any laptop. Every signal change goes
+  through `makutano.control.shield.SafetyShield`, and the rule-based controller is
+  `makutano.control.rule_based.choose_phase`.
+- **Frontend** (`makutano/live/static/`): plain HTML, CSS and JavaScript, with no
+  build step. It draws the frames the server streams over `/ws` at about 20 a
+  second and sends the operator's choices back.
+- **Controls:** controller (today's plan, Webster, rule-based, RL agent), the
+  stress scenarios (heavy demand, surge, blocked lane, pedestrian surge,
+  camera failure), speed, pause and restart. Every browser sees the same run.
+- **Stand-ins to replace:** the "RL agent" is a forecast-aware pressure rule
+  with the agent's inputs and outputs. The forecaster is the time-of-day
+  profile scaled by the last five minutes. Swap in `models/agent.zip` and
+  `forecaster.pkl` by adding a controller in `controllers.py` and a forecaster in
+  `session.py`. A TraCI-backed engine with the same methods as
+  `engine.Junction` can replace the built-in simulation.
+
 ## Status
 
 | Part | State |
 |---|---|
 | Measurement, series, forecasting baselines, gradient boosting, shield, rule-based controller, Webster timing, scenarios, experiment statistics | Covered by the synthetic tests |
 | GRU forecaster | Written; needs PyTorch to run |
+| Live console | Runs; covered by `tests/test_live.py`. Its agent and forecaster are stand-ins (see above) |
 | RL environment, training, experiment runs | Written and compile-checked; need SUMO, Gymnasium and Stable-Baselines3, so first run them on the pilot model and fix what breaks |
 
 ## Known simplifications, to revisit
