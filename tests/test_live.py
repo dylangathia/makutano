@@ -1,4 +1,6 @@
 """Checks for the live console's simulation (no browser or server needed)."""
+import math
+
 import pytest
 
 from makutano.live.layout import ROUTES, dest_of
@@ -13,6 +15,51 @@ def test_left_hand_traffic_turns():
     r = ROUTES[("north", "south")]
     assert r.points[0][0] > 0           # southbound traffic keeps to the east side
     assert r.s_stop < r.box_in < r.box_out < r.length
+
+
+def _footprint(v, shrink=0.15):
+    """Corners of a vehicle's body, slightly shrunk so touching bumpers don't count."""
+    from makutano.live.engine import TYPES
+    x, y, h = v.pose()
+    t = TYPES[v.type]
+    length, half = t.length - 2 * shrink, t.width / 2 - shrink
+    c, s = math.cos(h), math.sin(h)
+    return [(x + u * c - w * s, y + u * s + w * c)
+            for u, w in ((-shrink, -half), (-shrink, half), (-shrink - length, half), (-shrink - length, -half))]
+
+
+def _overlap(a, b):
+    for poly in (a, b):
+        for i in range(4):
+            (px, py), (qx, qy) = poly[i], poly[(i + 1) % 4]
+            nx, ny = qy - py, px - qx
+            pa = [nx * x + ny * y for x, y in a]
+            pb = [nx * x + ny * y for x, y in b]
+            if max(pa) < min(pb) or max(pb) < min(pa):
+                return False
+    return True
+
+
+def _collisions(s):
+    vs = [v for v in s.engine.vehicles() if 0 < v.s <= v.route.length]
+    fps = [_footprint(v) for v in vs]
+    hits = []
+    for i in range(len(vs)):
+        for j in range(i + 1, len(vs)):
+            if abs(fps[i][0][0] - fps[j][0][0]) < 14 and abs(fps[i][0][1] - fps[j][0][1]) < 14                     and _overlap(fps[i], fps[j]):
+                hits.append((vs[i].id, vs[j].id))
+    return hits
+
+
+@pytest.mark.parametrize("controller,scenario", [("rl", "normal"), ("fixed", "heavy"), ("rule", "peds")])
+def test_vehicles_never_overlap(controller, scenario):
+    s = Session(seed=11)
+    s.command({"cmd": "controller", "value": controller})
+    s.command({"cmd": "scenario", "value": scenario})
+    for k in range(6000):
+        s.step(0.1)
+        if k % 5 == 0:
+            assert not _collisions(s), f"vehicles overlap at {s.frame()['clock']}"
 
 
 def _run(controller, scenario="normal", minutes=12, seed=3):

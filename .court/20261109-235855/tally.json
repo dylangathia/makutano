@@ -1,0 +1,92 @@
+{
+  "verdict": "GUILTY",
+  "guilty": 12,
+  "not_guilty": 0,
+  "no_vote": 0,
+  "jurors": [
+    {
+      "juror": "The Accountant",
+      "vote": "GUILTY",
+      "reason": "Nobody can tell me what this layer costs: there's no LLM model, no price per query, no offline plan and no labelling effort. It wants to spend effort on a fourth module while the three it's supposed to explain haven't run a single time, and I won't sign a budget line with no figure on it that also comes before the work it depends on.",
+      "fact": "The record says \"Detection, RL training and the SUMO experiments have not run yet... and no footage has been recorded,\" and the prosecution showed, without any dispute from the defense, that the proposal has \"no stated model, cost, offline plan or ground-truth labelling effort.\"",
+      "flip": "The case named the LLM and its cost (or a free offline model), put a time budget on the layer, made it start only after the trained RL agent and the SUMO results exist, and reworded the pitch from \"prove why\" to \"show the evidence behind\" every decision."
+    },
+    {
+      "juror": "The First-Time Customer",
+      "vote": "GUILTY",
+      "reason": "Hearing this for the first time, I'm told it \"can prove why it made every decision,\" and then I find out there is no trained agent, no footage and no SUMO run, and even the defense admits \"prove\" overstates what it does, so I wouldn't believe the pitch as it's written.",
+      "fact": "The console's \"RL agent\" is a stand-in pressure rule, and detection, RL training and the SUMO experiments \"have not run yet\", so as of today the \"why\" layer would only be explaining a heuristic.",
+      "flip": "The pitch were reworded to \"shows the evidence behind every decision\" and the plan said outright that the layer gets built only after the trained RL agent is running in calibrated SUMO."
+    },
+    {
+      "juror": "The Competitor",
+      "vote": "GUILTY",
+      "reason": "If I were the rival pitching against this tomorrow, I would not need to copy it: I would ask the examiners to see the trained RL agent whose decisions it \"can prove\", and because that agent has never run and the logs hold only inputs and outputs, not the policy's reasons, the headline claim falls apart before I have to say anything else.",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet\", and the console's \"RL agent\" is a stand-in pressure rule, so the explain-why layer as described would be explaining a heuristic while being pitched as proof of why an RL agent acted.",
+      "flip": "the case committed to building the explain layer only after the trained RL agent and SUMO results exist, and reworded the pitch from \"can prove why it made every decision\" to \"can show the evidence behind every decision\", with an error set for the verifier that someone other than the author wrote."
+    },
+    {
+      "juror": "The Retired Judge",
+      "vote": "GUILTY",
+      "reason": "The charge is about the case as stated, and as stated its central claim, that the system \"can prove why it made every decision\", goes beyond what the record supports; the defense admits this, and its fixes (rewording, building the layer only after the core runs, a held-out error set) are promises, not anything in the record.",
+      "fact": "The record says detection, RL training and the SUMO experiments \"have not run yet\" and that the console's \"RL agent\" is a stand-in pressure rule, so no logged decision of a learned policy exists yet whose \"why\" could be proven, and the evidence records hold only inputs, the choice and shield firings, not the policy's reasons.",
+      "flip": "The case itself, not a rebuttal, were restated to claim only that it shows the logged evidence behind every decision, with a written commitment that the layer is built only after the trained RL agent and SUMO experiments have produced results."
+    },
+    {
+      "juror": "The Teenager",
+      "vote": "GUILTY",
+      "reason": "A chatbot explaining an RL agent that has never been trained is just a chatbot explaining a pressure rule, and nobody's coming back next week to ask why a fake agent did a fake thing, plus even the defense admits the \"prove why\" pitch is overselling it.",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet... and no footage has been recorded,\" while the console's \"RL agent\" is currently a stand-in pressure rule.",
+      "flip": "The RL agent were actually trained and running in calibrated SUMO first, with the pitch reworded to \"can show the evidence behind every decision,\" so the explain-why chat would be talking about real decisions."
+    },
+    {
+      "juror": "The Engineer",
+      "vote": "GUILTY",
+      "reason": "As an engineer I won't sign off on a fourth layer stacked on a base that has never run, because right now the explanation layer would only explain a stand-in pressure rule, and the plan as described doesn't say which LLM it uses, how it runs offline, or how a non-numeric \"why\" claim gets verified.",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet because SUMO, Gymnasium and Stable-Baselines3 are not installed, and no footage has been recorded\", and the console's \"RL agent\" is a stand-in.",
+      "flip": "the case committed to building the layer only after a trained RL agent is running in SUMO, reworded \"prove why\" to \"show the evidence behind,\" and named a concrete way to check non-numeric claims."
+    },
+    {
+      "juror": "The Small-Business Owner",
+      "vote": "GUILTY",
+      "reason": "You don't open a second counter when the first one has never sold anything: the core product hasn't run yet, one person does all the work, and as written this plan puts a new line on the shelf with no order of work, no cost for the LLM, and a sign out front (\"can prove why\") that even the defense says overpromises.",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet because SUMO, Gymnasium and Stable-Baselines3 are not installed, and no footage has been recorded.\"",
+      "flip": "The case committed in writing that the explain layer starts only after the trained RL agent has real SUMO results, with the pitch reworded to \"shows the evidence behind every decision\" and the LLM model, cost and offline plan named."
+    },
+    {
+      "juror": "The Statistician",
+      "vote": "GUILTY",
+      "reason": "Every number here would come from a sample of zero: no footage, no trained agent and no SUMO run exist yet. The verifier's headline catch rate would also be measured on errors its own author injected, so the record gives me no base rate that supports adding a fourth module or a claim to \"prove why.\"",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet ... and no footage has been recorded.\" The proposed layer would be logging and explaining a stand-in pressure rule, not the RL policy the pitch names.",
+      "flip": "The core pipeline had already produced real results (trained RL agent decisions in calibrated SUMO from recorded footage), the pitch were reworded to \"shows the evidence behind every decision,\" and the verifier were tested on a held-out or third-party set of fabricated answers."
+    },
+    {
+      "juror": "The Parent",
+      "vote": "GUILTY",
+      "reason": "If my child came home with this plan I'd say no: it spends scarce final-year time on a new LLM layer that explains a stand-in rule, while the core work it depends on hasn't run, and it promises to \"prove why\", which even its own defender admits it can't do.",
+      "fact": "Detection, RL training and the SUMO experiments \"have not run yet\" and no footage has been recorded, so today the logs record a stand-in pressure rule, not the RL agent the pitch is about.",
+      "flip": "The plan said in writing that the explain-why layer gets built only after the trained RL agent and SUMO results exist, with the pitch reworded to \"shows the evidence behind every decision\" and a stated LLM model, cost and offline fallback."
+    },
+    {
+      "juror": "The Investor",
+      "vote": "GUILTY",
+      "reason": "I would not put money into this as described, because it adds a fourth module on a core that has never produced a single result, and it is sold on a headline (\"can prove why it made every decision\") that even the defense admits the design cannot deliver.",
+      "fact": "\"Detection, RL training and the SUMO experiments have not run yet because SUMO, Gymnasium and Stable-Baselines3 are not installed, and no footage has been recorded\", so today the explanation layer would only explain a stand-in pressure rule, not an RL agent.",
+      "flip": "The case said explicitly that the layer is built only after the trained RL agent and calibrated SUMO results exist, with the pitch reworded to \"shows the evidence behind every decision\" and a named LLM model and offline/cost plan."
+    },
+    {
+      "juror": "The Designer",
+      "vote": "GUILTY",
+      "reason": "The one-line pitch is the first thing a stranger reads, and it promises \"prove why\" when both sides agree the design only shows the evidence around a decision, so the story is clear but wrong, and the project also goes from three parts to four before any of the first three has run.",
+      "fact": "The defense concedes that \"the 'prove' in the pitch overstates what the verifier does: it checks consistency with the logs, not that the decisions were correct,\" which means the headline, as stated, misleads the reader.",
+      "flip": "The pitch were reworded to an honest claim such as \"shows the evidence behind every decision,\" and the case stated plainly that the explain layer is built only after the RL agent and SUMO results exist, so the story stays a three-part pipeline with a verified log on top."
+    },
+    {
+      "juror": "The Lawyer",
+      "vote": "GUILTY",
+      "reason": "As written, the pitch makes two claims the record shows are untrue, that Makutano \"runs a Nairobi junction's signals\" when it only controls a simulation that has not run yet, and that it \"can prove why it made every decision\" when the verifier only checks answers against logs the system writes about itself; I would not sign off on a headline like that.",
+      "fact": "The defense's own concession that \"the 'prove' in the pitch overstates what the verifier does: it checks consistency with the logs, not that the decisions were correct,\" together with the record's statement that the RL agent is a stand-in and the simulator \"a small built-in microsimulation standing in for SUMO.\"",
+      "flip": "The case reworded the pitch to claim only what can be shown (for example, \"a simulated controller that shows the logged evidence behind every decision\") and committed to building the layer only after the trained RL agent and the SUMO results exist."
+    }
+  ]
+}

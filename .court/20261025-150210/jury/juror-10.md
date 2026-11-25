@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: I'd pay for the recording and the first run through See, because that buys real information cheaply, but as described the headline step pits a hand-written stand-in rule against today's plan in a toy simulator with no defined pass mark, so the main thing it can produce is a misleading number shown at a viva, and the plan carries that risk without the matching upside.
+DECIDING FACT: The record says the "RL agent" in the console "is currently a stand-in rule (a forecast-aware pressure rule)" and that "SUMO, Gymnasium and Stable-Baselines3 are not installed", so the comparison as described cannot test the project's actual controller.
+WOULD FLIP IF: The plan required the agent-versus-today comparison to wait until the trained agent runs in the calibrated SUMO model, and only then made the claim, after the "today's plan" replay matched the video delays within a tolerance set in advance.

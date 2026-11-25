@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: Nobody can tell me what this layer costs: there's no LLM model, no price per query, no offline plan and no labelling effort. It wants to spend effort on a fourth module while the three it's supposed to explain haven't run a single time, and I won't sign a budget line with no figure on it that also comes before the work it depends on.
+DECIDING FACT: The record says "Detection, RL training and the SUMO experiments have not run yet... and no footage has been recorded," and the prosecution showed, without any dispute from the defense, that the proposal has "no stated model, cost, offline plan or ground-truth labelling effort."
+WOULD FLIP IF: The case named the LLM and its cost (or a free offline model), put a time budget on the layer, made it start only after the trained RL agent and the SUMO results exist, and reworded the pitch from "prove why" to "show the evidence behind" every decision.

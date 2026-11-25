@@ -4,6 +4,9 @@
         --routes "sumo/train/*.rou.xml" --forecaster outputs/predict/forecaster.pkl \
         --out models/rl_pred
 
+    # faster: run several training mornings at once, one SUMO per CPU core
+    python -m makutano.control.train ... --n-envs 4
+
     # the comparison agent, identical except that it gets no predictions:
     python -m makutano.control.train --config config/site.yaml \
         --routes "sumo/train/*.rou.xml" --no-prediction --out models/rl_nopred
@@ -32,10 +35,12 @@ def main():
     p.add_argument("--algo", choices=["ppo", "dqn"], default="ppo")
     p.add_argument("--timesteps", type=int, default=200_000, help="agent decisions (one per 5 s)")
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--n-envs", type=int, default=1, help="simulations run in parallel (about one per CPU core)")
     args = p.parse_args()
 
     from stable_baselines3 import DQN, PPO
     from stable_baselines3.common.monitor import Monitor
+    from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
 
     cfg = load_config(args.config)
     routes = sorted(glob.glob(args.routes))
@@ -47,8 +52,13 @@ def main():
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    env = Monitor(make_env(cfg, routes, use_prediction, forecaster, seed=args.seed, end_s=end_s),
-                  str(out / "monitor"))
+    def factory(i):
+        # each copy gets its own seed, so they draw different mornings and SUMO seeds
+        return lambda: Monitor(make_env(cfg, routes, use_prediction, forecaster, seed=args.seed + i, end_s=end_s),
+                               str(out / f"monitor_{i}"))
+
+    envs = [factory(i) for i in range(args.n_envs)]
+    env = SubprocVecEnv(envs) if args.n_envs > 1 else DummyVecEnv(envs)
     if args.algo == "ppo":
         model = PPO("MlpPolicy", env, seed=args.seed, n_steps=1024, batch_size=256, gamma=0.99, verbose=1)
     else:
@@ -59,9 +69,9 @@ def main():
     env.close()
     (out / "agent.json").write_text(json.dumps({
         "algo": args.algo, "use_prediction": use_prediction, "timesteps": args.timesteps,
-        "seed": args.seed, "training_routes": len(routes),
+        "seed": args.seed, "n_envs": args.n_envs, "training_routes": len(routes),
         "forecaster": args.forecaster if use_prediction else None}, indent=2))
-    print(f"saved {out / 'agent.zip'}; episode rewards are in {out / 'monitor.monitor.csv'}")
+    print(f"saved {out / 'agent.zip'}; episode rewards are in {out}/monitor_*.monitor.csv")
 
 
 if __name__ == "__main__":

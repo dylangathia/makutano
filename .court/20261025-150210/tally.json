@@ -1,0 +1,92 @@
+{
+  "verdict": "GUILTY",
+  "guilty": 11,
+  "not_guilty": 1,
+  "no_vote": 0,
+  "jurors": [
+    {
+      "juror": "The Accountant",
+      "vote": "GUILTY",
+      "reason": "The plan is costed only in words like \"cheap\" and has no sourced figure for time or effort, yet it spends recording, extraction and replay work, before 24 April 2027, on a comparison whose result can't be trusted as described: the \"agent\" is a stand-in rule in a stand-in microsimulation, and both sides of the comparison come from a detector that has never run, judged against a \"roughly\" with no number attached.",
+      "fact": "The record says the console's \"RL agent\" is \"currently a stand-in rule (a forecast-aware pressure rule)\" and that SUMO, Gymnasium and Stable-Baselines3 \"are not installed\", so the \"difference\" would come from a heuristic the project never set out to sell.",
+      "flip": "The plan were rescheduled to run after the trained agent exists, inside the calibrated SUMO model, with a hand-count check on the See output and a numeric match tolerance for \"today's plan\" set in advance, so the work buys a result someone can trust."
+    },
+    {
+      "juror": "The First-Time Customer",
+      "vote": "GUILTY",
+      "reason": "If someone showed me this \"difference\" for the first time, I'd assume I was watching the project's trained controller beat the real junction, and I'd feel misled to learn it was a hand-written rule in a toy simulator replaying arrivals that today's lights had already shaped.",
+      "fact": "The record says the \"RL agent\" in the console \"is currently a stand-in rule (a forecast-aware pressure rule)\", and the defense concedes that any result before training \"demonstrates the console and does not demonstrate the project's RL\".",
+      "flip": "The comparison only ran once the trained agent existed, in the calibrated SUMO model, with arrivals counted upstream of the stop line, a hand-count check on the See output, and a \"roughly matches\" tolerance set in advance."
+    },
+    {
+      "juror": "The Competitor",
+      "vote": "GUILTY",
+      "reason": "If I were the rival vendor, I would let them show their \"difference\" and then point out that it is a hand-written pressure rule replaying traffic already shaped by today's lights inside a toy simulator, judged against an undefined \"roughly\", and that one rebuttal would wipe out their headline; as described, this demo gives me ammunition and gives them no edge.",
+      "fact": "The record says the \"RL agent\" in the console \"is currently a stand-in rule (a forecast-aware pressure rule)\" running in \"a small built-in traffic microsimulation standing in for SUMO\", so the comparison as described tests neither the project's model nor its calibrated environment.",
+      "flip": "The comparison ran only after the trained agent existed, in the calibrated SUMO model, with arrivals counted upstream of the stop line, See checked against a hand count, and a numeric \"today's plan\" match tolerance fixed before the run."
+    },
+    {
+      "juror": "The Retired Judge",
+      "vote": "GUILTY",
+      "reason": "The defense's own concessions show the comparison as described would measure a stand-in rule in a stand-in simulator against an unvalidated detector, judged by an undefined \"roughly\", so its case for going ahead this way rests on hope, not on evidence in the record.",
+      "fact": "The record states the console's \"RL agent\" is \"a stand-in rule (a forecast-aware pressure rule)\" and that \"SUMO, Gymnasium and Stable-Baselines3 are not installed\", so the \"model\" the idea proposes to test does not yet exist.",
+      "flip": "The plan were restated to run only the trained agent in the calibrated SUMO model, with a numeric \"today's plan\" match tolerance fixed in advance and the See output checked against hand counts before any difference is reported."
+    },
+    {
+      "juror": "The Teenager",
+      "vote": "NOT GUILTY",
+      "reason": "Honestly, the multi-seed confidence intervals put me to sleep, and real Nairobi traffic going through the model next to what actually happened on the video is the only part of this anyone would watch, talk about or remember, so do it, as long as the check against today's plan passes first.",
+      "fact": "The record says the 20-minute clip \"would be a demonstration rather than the main evaluation; the report's numbers would still come from the multi-seed experiments,\" so the side demo can't sink the project, and it is the one bit people will actually look at.",
+      "flip": "The comparison were run and shown before the trained agent exists, so the \"difference\" on screen came from the stand-in pressure rule in the toy microsimulation and was presented as the project's ML controller."
+    },
+    {
+      "juror": "The Engineer",
+      "vote": "GUILTY",
+      "reason": "As a builder I can see the recording and the See run working, but the comparison as described feeds arrivals from a detector that has never run into a stand-in microsimulation driven by a stand-in rule, and checks it against an undefined \"roughly\" with no hand counts, so a mismatch or a \"difference\" could come from any of those parts and nobody could tell which.",
+      "fact": "Step 3 replays \"those exact arrivals\" in \"a small built-in traffic microsimulation standing in for SUMO,\" while the record never says whether arrivals are taken upstream or at the stop line, where today's signal has already shaped them; that means the step 4 match on today's plan cannot vouch for the agent's counterfactual plan.",
+      "flip": "The plan logged arrivals upstream of the queue, checked See against hand counts, ran the replay in the calibrated SUMO model with the trained agent, and fixed the \"today's plan\" match tolerance before running."
+    },
+    {
+      "juror": "The Small-Business Owner",
+      "vote": "GUILTY",
+      "reason": "One person is doing all the work here, and the main product isn't on the shelf yet because SUMO isn't installed and nothing is trained, so spending the next free Monday on a side demo that pits a stand-in rule against an unchecked count is stocking the window before the shop has anything to sell.",
+      "fact": "The record says \"the detection, RL training and experiments have not run yet, because SUMO, Gymnasium and Stable-Baselines3 are not installed,\" and the \"RL agent\" in the console is \"a stand-in rule,\" so run as described, the comparison doesn't test the project's model at all.",
+      "flip": "The plan were set to run only after the trained agent and calibrated SUMO model exist, with a hand count against the See output and a \"roughly matches\" tolerance fixed in advance, and with camera access and the junction's real control mode confirmed before any recording time is spent."
+    },
+    {
+      "juror": "The Statistician",
+      "vote": "GUILTY",
+      "reason": "A single 20-minute clip gives one difference with no error bar, and the only yardstick for separating real controller effect from replay and simulator error is a \"roughly\" match that nobody has defined, so whatever gap appears cannot be told apart from noise, and once shown at a viva it will be read as a result.",
+      "fact": "The step-4 acceptance test is only that simulated \"today's plan\" reproduces \"roughly the delays the video showed,\" with no tolerance set, on one 20-minute sample whose delays come from a See module that has never run.",
+      "flip": "The plan fixed a numeric tolerance for the step-4 match before recording and committed to report the agent-versus-today gap only when it is larger than that tolerance (i.e. larger than the replay's own measured error)."
+    },
+    {
+      "juror": "The Parent",
+      "vote": "GUILTY",
+      "reason": "I'd back a cheap recording trip, but not one where the \"model\" being shown off is really a hand-written stand-in rule judged against detector numbers nobody has checked, because a demo you can't trust is worse than no demo when the time could go to the experiments the grade depends on.",
+      "fact": "The record says the \"RL agent\" in the console \"is currently a stand-in rule (a forecast-aware pressure rule)\" and that detection and RL training \"have not run yet,\" so the comparison as described would not test the project's model at all.",
+      "flip": "The plan said the agent-versus-today comparison runs only after the trained agent exists in the calibrated SUMO model, with a hand-count check on the See output and a \"roughly matches\" tolerance fixed in advance."
+    },
+    {
+      "juror": "The Investor",
+      "vote": "GUILTY",
+      "reason": "I'd pay for the recording and the first run through See, because that buys real information cheaply, but as described the headline step pits a hand-written stand-in rule against today's plan in a toy simulator with no defined pass mark, so the main thing it can produce is a misleading number shown at a viva, and the plan carries that risk without the matching upside.",
+      "fact": "The record says the \"RL agent\" in the console \"is currently a stand-in rule (a forecast-aware pressure rule)\" and that \"SUMO, Gymnasium and Stable-Baselines3 are not installed\", so the comparison as described cannot test the project's actual controller.",
+      "flip": "The plan required the agent-versus-today comparison to wait until the trained agent runs in the calibrated SUMO model, and only then made the claim, after the \"today's plan\" replay matched the video delays within a tolerance set in advance."
+    },
+    {
+      "juror": "The Designer",
+      "vote": "GUILTY",
+      "reason": "Anyone watching a \"model vs. the real junction\" comparison will take away \"the ML controller beat today's traffic,\" but as described the thing doing the controlling is a hand-written stand-in rule in a toy simulator, so the headline would tell them something that isn't true.",
+      "fact": "The record says the \"RL agent\" in the console \"is currently a stand-in rule (a forecast-aware pressure rule)\" and the forecaster \"is a stand-in,\" running in \"a small built-in traffic microsimulation standing in for SUMO.\"",
+      "flip": "The plan said the comparison runs only once the trained agent and forecaster have replaced the stand-ins, with a \"roughly matches\" tolerance fixed in advance, so the one-line result would mean what a stranger would assume it means."
+    },
+    {
+      "juror": "The Lawyer",
+      "vote": "GUILTY",
+      "reason": "As described, the plan goes straight from \"record about 20 minutes\" at a public Nairobi junction to processing every car, boda boda and pedestrian in the clip, with no step for filming permission, university ethics clearance or handling of identifiable people and number plates, and it would present a hand-written stand-in rule as \"this model\", which is a misrepresentation risk at the viva; both are fixable, but the plan as stated leaves them out.",
+      "fact": "The record says nothing about camera access, permission to film or a permitted vantage point (both sides note this: the prosecution says \"the record says nothing about camera access, permission\", and the defense agrees that \"whether filming is permitted, is not in the record and should be confirmed first\"), yet the plan's first step is to record from \"a high, fixed camera position covering all approaches.\"",
+      "flip": "The plan added a first step to get written permission to film from the road or site authority and the university's ethics/data-protection clearance (blurring faces and plates, storing footage securely), with any run before training clearly labelled as the stand-in rule rather than the project's RL agent."
+    }
+  ]
+}

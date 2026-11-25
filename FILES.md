@@ -20,6 +20,7 @@ control:  webster ─► comparison plans ; scenarios ─► training and stress
 | [homography.py](makutano/see/homography.py) | Fits the mapping from image pixels to metres on the road from ground control points, and reports its error, including the leave-one-out error (the figure to trust) | config | error report |
 | [detect_track.py](makutano/see/detect_track.py) | YOLO detection and ByteTrack tracking; one row per box per frame. Maps standard (COCO) classes to project classes for pre-trained weights | video, YOLO weights | `tracks.csv` |
 | [measure.py](makutano/see/measure.py) | Cleans tracks and converts them to metres, then computes each vehicle's movement, delay, speed and arrival time, the queue on each approach, and the 5-second series of arrivals and queues per approach | `tracks.csv`, config | `movement_volumes.csv`, `approach_volumes.csv`, `delay.csv`, `speeds.csv`, `queues.csv`, `passes.csv`, `series.csv` |
+| [validate_counts.py](makutano/see/validate_counts.py) | Compares the pipeline's counts with a manual count of the same video, for any sampled intervals: error and GEH per cell, and totals by class and by approach or movement. This is the detection accuracy result | `passes.csv`, manual count CSV | `count_validation.csv`, `count_validation_summary.csv` |
 
 ## Module 2: Predict (`makutano/predict/`)
 
@@ -53,8 +54,8 @@ control:  webster ─► comparison plans ; scenarios ─► training and stress
 
 | File | What it does |
 |---|---|
-| [layout.py](makutano/live/layout.py) | Junction geometry in metres: lanes (traffic keeps left), stop lines, zebra crossings, and a route polyline for every movement |
-| [engine.py](makutano/live/engine.py) | Built-in traffic simulation standing in for SUMO: car following, stopping for red and amber, giving way to pedestrians, right-turners waiting for a gap, a blocked-lane incident |
+| [layout.py](makutano/live/layout.py) | Junction geometry in metres: lanes (traffic keeps left), stop lines, zebra crossings, a route polyline for every movement, and the conflict zones where two routes would collide |
+| [engine.py](makutano/live/engine.py) | Built-in traffic simulation standing in for SUMO: car following, stopping for red and amber, giving way to pedestrians, collision avoidance in the junction (right of way, gap acceptance, keeping the box clear), a blocked-lane incident |
 | [controllers.py](makutano/live/controllers.py) | Today's plan, Webster, rule-based (uses `control/rule_based.py`) and a stand-in for the RL agent; each asks for a phase |
 | [session.py](makutano/live/session.py) | One live run: demand from the time-of-day profile and scenario, forecasts, decisions through `control/shield.py`, statistics and the event log |
 | [server.py](makutano/live/server.py) | FastAPI app: streams frames over `/ws`, takes commands, serves the frontend; `/api/layout`, `/api/state`, `/api/command` |
@@ -64,9 +65,10 @@ control:  webster ─► comparison plans ; scenarios ─► training and stress
 
 | File | What it does |
 |---|---|
-| [makutano/config.py](makutano/config.py) | Loads the YAML config and checks approach names (they are encoded into SUMO vehicle ids, so no `__` or `.`) |
+| [makutano/classes.py](makutano/classes.py) | The six road-user classes every module uses (matatu, boda_boda, private_car, truck_bus, handcart, pedestrian), and how pre-trained COCO classes map onto them |
+| [makutano/config.py](makutano/config.py) | Loads the YAML config and checks approach names (they are encoded into SUMO vehicle ids, so no `__` or `.`) and class names (SUMO vehicle types must be project classes) |
 | [config/site.example.yaml](config/site.example.yaml) | Template for a junction: ground control points, zones, SUMO edges and vehicle types, plus the `predict`, `control` and `scenarios` sections. Every value is a placeholder |
-| [tests/](tests/) | Synthetic checks per module (`test_see_sim.py`, `test_predict.py`, `test_control.py`, `test_live.py`); run with `python -m pytest`. No video, GPU or SUMO needed |
+| [tests/](tests/) | Synthetic checks per module (`test_see_sim.py`, `test_predict.py`, `test_control.py`, `test_live.py`, `test_validate_counts.py`); run with `python -m pytest`. No video, GPU or SUMO needed |
 | [requirements.txt](requirements.txt) | Core packages, including scikit-learn for the gradient-boosting forecaster |
 | [requirements-detect.txt](requirements-detect.txt) | Adds Ultralytics (and PyTorch) for detection; install where there's a GPU |
 | [requirements-ml.txt](requirements-ml.txt) | Adds PyTorch, Gymnasium and Stable-Baselines3 for the GRU and the RL agent |

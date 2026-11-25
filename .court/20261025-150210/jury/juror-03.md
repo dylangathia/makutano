@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: If I were the rival vendor, I would let them show their "difference" and then point out that it is a hand-written pressure rule replaying traffic already shaped by today's lights inside a toy simulator, judged against an undefined "roughly", and that one rebuttal would wipe out their headline; as described, this demo gives me ammunition and gives them no edge.
+DECIDING FACT: The record says the "RL agent" in the console "is currently a stand-in rule (a forecast-aware pressure rule)" running in "a small built-in traffic microsimulation standing in for SUMO", so the comparison as described tests neither the project's model nor its calibrated environment.
+WOULD FLIP IF: The comparison ran only after the trained agent existed, in the calibrated SUMO model, with arrivals counted upstream of the stop line, See checked against a hand count, and a numeric "today's plan" match tolerance fixed before the run.

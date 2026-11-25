@@ -30,11 +30,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from ..classes import BODA_BODA, PEDESTRIAN
 from ..config import load_config
 from .homography import homography_from_config, to_ground
 
-PEDESTRIAN = "pedestrian"
-TWO_WHEELERS = {"boda_boda", "bicycle"}
+TWO_WHEELERS = {BODA_BODA}
 
 
 def points_in_polygon(pts, poly):
@@ -63,7 +63,7 @@ def point_to_segment_distance(pts, a, b):
 
 
 def drop_riders(df, min_overlap=0.3, min_share=0.5):
-    """Remove pedestrian tracks that are really boda boda or bicycle riders.
+    """Remove pedestrian tracks that are really boda boda riders.
 
     A person counts as riding in a frame when much of their box overlaps a
     two-wheeler box and their feet are not below its wheels. A track riding in

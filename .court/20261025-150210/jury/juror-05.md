@@ -1,0 +1,4 @@
+VOTE: NOT GUILTY
+REASON: Honestly, the multi-seed confidence intervals put me to sleep, and real Nairobi traffic going through the model next to what actually happened on the video is the only part of this anyone would watch, talk about or remember, so do it, as long as the check against today's plan passes first.
+DECIDING FACT: The record says the 20-minute clip "would be a demonstration rather than the main evaluation; the report's numbers would still come from the multi-seed experiments," so the side demo can't sink the project, and it is the one bit people will actually look at.
+WOULD FLIP IF: The comparison were run and shown before the trained agent exists, so the "difference" on screen came from the stand-in pressure rule in the toy microsimulation and was presented as the project's ML controller.

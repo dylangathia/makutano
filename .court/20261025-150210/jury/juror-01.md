@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: The plan is costed only in words like "cheap" and has no sourced figure for time or effort, yet it spends recording, extraction and replay work, before 24 April 2027, on a comparison whose result can't be trusted as described: the "agent" is a stand-in rule in a stand-in microsimulation, and both sides of the comparison come from a detector that has never run, judged against a "roughly" with no number attached.
+DECIDING FACT: The record says the console's "RL agent" is "currently a stand-in rule (a forecast-aware pressure rule)" and that SUMO, Gymnasium and Stable-Baselines3 "are not installed", so the "difference" would come from a heuristic the project never set out to sell.
+WOULD FLIP IF: The plan were rescheduled to run after the trained agent exists, inside the calibrated SUMO model, with a hand-count check on the See output and a numeric match tolerance for "today's plan" set in advance, so the work buys a result someone can trust.

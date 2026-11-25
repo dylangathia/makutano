@@ -23,6 +23,9 @@ from .scenarios import RuntimeEvents, Scenario
 from .shield import SafetyShield, ShieldConfig
 
 
+_LIBSUMO_BUSY = False   # libsumo runs one simulation per process
+
+
 def import_traci():
     try:
         import traci
@@ -65,9 +68,7 @@ class JunctionSim:
             cmd += ["-a", ",".join(map(str, extra))]
         if tripinfo:
             cmd += ["--tripinfo-output", str(tripinfo)]
-        self.label = f"mk-{uuid.uuid4().hex[:8]}"
-        traci.start(cmd, label=self.label)
-        self.conn = traci.getConnection(self.label)
+        self.conn = self._connect(traci, cmd)
         if program:
             self.conn.trafficlight.setProgram(self.tls, program)
         logic = self.conn.trafficlight.getAllProgramLogics(self.tls)[0]
@@ -75,14 +76,41 @@ class JunctionSim:
         self.states = [p.state for p in phases]
         self.lanes = {a: [[f"{e}_{i}" for i in range(self.conn.edge.getLaneNumber(e))] for e in edges]
                       for a, edges in self.approach_edges.items()}
-        self.offsets = {a: np.cumsum([0.0] + [self.conn.lane.getLength(lanes[0]) for lanes in per_edge[:-1]])
+        self.lane_length = {lane: self.conn.lane.getLength(lane)
+                            for per_edge in self.lanes.values() for lanes in per_edge for lane in lanes}
+        self.offsets = {a: np.cumsum([0.0] + [self.lane_length[lanes[0]] for lanes in per_edge[:-1]])
                         for a, per_edge in self.lanes.items()}
         self.counted = {a: set() for a in self.approach_edges}
         self.persons_seen = set()
+        # SUMO pushes these variables once per step (subscriptions) instead of one call per vehicle.
+        self._tc = traci.constants
+        self.vehicles, self.persons = {}, {}
+        self._time = self.conn.simulation.getTime()
+        self._shown = None
+
+    def _connect(self, traci, cmd):
+        """Start SUMO in-process with libsumo when possible (several times faster than TraCI's
+        socket); MAKUTANO_SUMO=traci forces TraCI, =libsumo requires libsumo."""
+        global _LIBSUMO_BUSY
+        backend = os.environ.get("MAKUTANO_SUMO", "auto")
+        self._libsumo = False
+        if backend != "traci" and not _LIBSUMO_BUSY:
+            try:
+                import libsumo
+            except ImportError:
+                if backend == "libsumo":
+                    raise SystemExit("MAKUTANO_SUMO=libsumo but libsumo is not installed: pip install libsumo")
+            else:
+                libsumo.start(cmd)
+                _LIBSUMO_BUSY = self._libsumo = True
+                return libsumo
+        self.label = f"mk-{uuid.uuid4().hex[:8]}"
+        traci.start(cmd, label=self.label)
+        return traci.getConnection(self.label)
 
     @property
     def time(self):
-        return self.conn.simulation.getTime()
+        return self._time
 
     def running(self, end_s=None):
         if end_s is not None and self.time >= end_s:
@@ -91,6 +119,15 @@ class JunctionSim:
 
     def step(self):
         self.conn.simulationStep()
+        tc = self._tc
+        self._time = self.conn.simulation.getTime()
+        for v in self.conn.simulation.getDepartedIDList():
+            self.conn.vehicle.subscribe(v, [tc.VAR_LANE_ID, tc.VAR_LANEPOSITION, tc.VAR_SPEED,
+                                            tc.VAR_ACCUMULATED_WAITING_TIME])
+        for p in self.conn.simulation.getDepartedPersonIDList():
+            self.conn.person.subscribe(p, [tc.VAR_WAITING_TIME])
+        self.vehicles = self.conn.vehicle.getAllSubscriptionResults()
+        self.persons = self.conn.person.getAllSubscriptionResults()
 
     def set_signal(self, kind, phase):
         """Show a green, the amber that ends it, or all-red, by state string."""
@@ -100,24 +137,30 @@ class JunctionSim:
             state = self.states[self.green_phases[phase] + 1]
         else:
             state = "r" * len(self.states[0])
-        self.conn.trafficlight.setRedYellowGreenState(self.tls, state)
+        if state != self._shown:   # only talk to SUMO when the lights change
+            self.conn.trafficlight.setRedYellowGreenState(self.tls, state)
+            self._shown = state
 
     def measure(self):
         """True queue (m) and new arrivals per approach, within camera range."""
+        tc = self._tc
+        on_lane = {}
+        for v, var in self.vehicles.items():
+            on_lane.setdefault(var[tc.VAR_LANE_ID], []).append((v, var[tc.VAR_LANEPOSITION], var[tc.VAR_SPEED]))
         queues, arrivals = {}, {}
         for a, per_edge in self.lanes.items():
             q, new = 0.0, 0
             for offset, lanes in zip(self.offsets[a], per_edge):
                 for lane in lanes:
-                    length = self.conn.lane.getLength(lane)
-                    for v in self.conn.lane.getLastStepVehicleIDs(lane):
-                        dist = offset + length - self.conn.vehicle.getLanePosition(v)
+                    length = self.lane_length[lane]
+                    for v, pos, speed in on_lane.get(lane, ()):
+                        dist = offset + length - pos
                         if dist > self.camera_range:
                             continue
                         if v not in self.counted[a]:
                             self.counted[a].add(v)
                             new += 1
-                        if self.conn.vehicle.getSpeed(v) < self.queue_speed:
+                        if speed < self.queue_speed:
                             q = max(q, dist)
             queues[a], arrivals[a] = q, new
         self.last_queues = queues   # true queues, kept for the experiment's measurements
@@ -132,26 +175,23 @@ class JunctionSim:
 
     def pedestrians(self):
         """(number waiting, total seconds waited by those waiting now)."""
-        ids = self.conn.person.getIDList()
-        self.persons_seen.update(ids)
-        waits = [self.conn.person.getWaitingTime(p) for p in ids]
-        waiting = [w for w in waits if w > 0]
+        self.persons_seen.update(self.persons)
+        waiting = [w for w in (var[self._tc.VAR_WAITING_TIME] for var in self.persons.values()) if w > 0]
         self.last_ped = (len(waiting), float(sum(waiting)))
         return self.last_ped
 
     def vehicle_wait(self):
-        total = 0.0
-        for per_edge in self.lanes.values():
-            for lanes in per_edge:
-                for lane in lanes:
-                    for v in self.conn.lane.getLastStepVehicleIDs(lane):
-                        total += self.conn.vehicle.getAccumulatedWaitingTime(v)
-        return total
+        tc = self._tc
+        return float(sum(var[tc.VAR_ACCUMULATED_WAITING_TIME] for var in self.vehicles.values()
+                         if var[tc.VAR_LANE_ID] in self.lane_length))
 
     def close(self):
+        global _LIBSUMO_BUSY
         if self.conn is not None:
             self.conn.close()
             self.conn = None
+            if self._libsumo:
+                _LIBSUMO_BUSY = self._libsumo = False
 
 
 def _gym():

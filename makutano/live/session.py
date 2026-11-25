@@ -19,7 +19,7 @@ STEP = 0.1
 START = 7 * 3600 + 20 * 60          # 07:20, early in the morning peak
 WARMUP = 240.0                      # seconds simulated before the first frame
 DECISION_S = 5.0                    # the agent decides every 5 s
-BASE = {"north": 400, "south": 460, "east": 640, "west": 580}   # veh/h near the peak
+BASE = {"north": 340, "south": 390, "east": 540, "west": 490}   # veh/h near the peak
 PED_BASE = 120                      # pedestrians/h per crossing
 
 SCENARIOS = {
@@ -238,7 +238,10 @@ class Session:
         heads = self.heads()
         state, ph = sh.signal_state()
         ped_ok = {a: state == "green" and a not in PHASES[ph] for a in APPROACHES}
+        n_removed = len(eng.removed)
         eng.step(dt, heads, ped_ok)
+        for _, vid in eng.removed[n_removed:]:
+            self.note(f"Gridlock: vehicle {vid} removed after 40 s stuck in the junction", "shield")
 
         m = int(eng.t // 60)
         if m != self.minute:

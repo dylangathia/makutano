@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: The charge is about the case as stated, and as stated its central claim, that the system "can prove why it made every decision", goes beyond what the record supports; the defense admits this, and its fixes (rewording, building the layer only after the core runs, a held-out error set) are promises, not anything in the record.
+DECIDING FACT: The record says detection, RL training and the SUMO experiments "have not run yet" and that the console's "RL agent" is a stand-in pressure rule, so no logged decision of a learned policy exists yet whose "why" could be proven, and the evidence records hold only inputs, the choice and shield firings, not the policy's reasons.
+WOULD FLIP IF: The case itself, not a rebuttal, were restated to claim only that it shows the logged evidence behind every decision, with a written commitment that the layer is built only after the trained RL agent and SUMO experiments have produced results.

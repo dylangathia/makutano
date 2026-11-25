@@ -85,6 +85,7 @@ sumo:
   time_to_teleport: 300
   additional_files: []        # e.g. [sumo/observed_signals.add.xml, sumo/matatu_stops.add.xml]
   # These are the parameters calibration adjusts. Start from these, then fit them.
+  # One vType per vehicle class in makutano/classes.py; the names must match.
   vtypes:
     private_car:
       vClass: passenger
@@ -104,20 +105,26 @@ sumo:
       lcPushy: 0.5
       maxSpeed: 16.7
       speedDev: 0.15
-    bus_matatu:               # 14-seater matatus are ~5.5 m; 33-seaters closer to 8 m
+    matatu:                   # 14-seater matatus are ~5.5 m; 33-seaters closer to 8 m
       vClass: bus
       length: 5.5
       width: 2.0
       minGap: 1.0
       maxSpeed: 16.7
       speedDev: 0.1
-    truck:
+    truck_bus:                # trucks and large buses share one class
       vClass: truck
-      length: 8.0
+      length: 9.0
+      width: 2.5
       minGap: 2.0
       maxSpeed: 13.9
-    bicycle:
+    handcart:                 # pushed carts (mkokoteni): slow, keep to the kerb
       vClass: bicycle
+      length: 2.5
+      width: 1.2
+      minGap: 0.5
+      maxSpeed: 1.5
+      speedDev: 0.2
       latAlignment: right
 
 # ---------- Module 2: Predict ----------

@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: As written, the pitch makes two claims the record shows are untrue, that Makutano "runs a Nairobi junction's signals" when it only controls a simulation that has not run yet, and that it "can prove why it made every decision" when the verifier only checks answers against logs the system writes about itself; I would not sign off on a headline like that.
+DECIDING FACT: The defense's own concession that "the 'prove' in the pitch overstates what the verifier does: it checks consistency with the logs, not that the decisions were correct," together with the record's statement that the RL agent is a stand-in and the simulator "a small built-in microsimulation standing in for SUMO."
+WOULD FLIP IF: The case reworded the pitch to claim only what can be shown (for example, "a simulated controller that shows the logged evidence behind every decision") and committed to building the layer only after the trained RL agent and the SUMO results exist.

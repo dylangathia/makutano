@@ -25,6 +25,12 @@ from .sumo_demand import parse_flow_id
 
 def sumo_binary():
     home = os.environ.get("SUMO_HOME")
+    if not home:
+        try:
+            import sumo  # the eclipse-sumo pip package carries its own SUMO
+            home = os.environ["SUMO_HOME"] = sumo.SUMO_HOME
+        except ImportError:
+            pass
     if home:
         for name in ("sumo", "sumo.exe"):
             candidate = Path(home) / "bin" / name

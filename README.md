@@ -55,14 +55,23 @@ python -m makutano.see.homography --config config/site.yaml
 python -m makutano.see.detect_track --video data/raw/day1_am.mp4 --out outputs/day1_am/tracks.csv
 python -m makutano.see.measure --config config/site.yaml --tracks outputs/day1_am/tracks.csv `
     --out outputs/day1_am --start 2026-10-20T07:00:00
+python -m makutano.see.validate_counts --config config/site.yaml --passes outputs/day1_am/passes.csv `
+    --manual data/manual/day1_am_counts.csv --out outputs/day1_am/count_validation
 ```
 
 - **Homography:** check the leave-one-out error, not the in-sample one. If it's
   above about 1 m, add or spread out the control points.
 - **`--start`:** give the wall-clock time of the first frame. The predictor needs
   the time of day and the date.
-- **Checking the output:** spot-check `passes.csv` against the video, and compare
-  the counts with a manual count. That comparison is the first validation result.
+- **Classes:** every module uses the six road-user classes in
+  `makutano/classes.py` (matatu, boda_boda, private_car, truck_bus, handcart,
+  pedestrian). Fine-tune the detector on exactly these names. The config
+  rejects SUMO vehicle types with any other name.
+- **Checking the output:** spot-check `passes.csv` against the video. Then
+  hand-count a few sampled intervals of the same video and run
+  `validate_counts`, which reports count error and GEH per cell, by class and by
+  movement. That comparison is the first validation result. The manual CSV
+  format is described at the top of `see/validate_counts.py`.
 
 ## 2. Predict
 
@@ -144,8 +153,13 @@ python -m makutano.live          # open http://127.0.0.1:8000
 ```
 
 - **Backend** (`makutano/live/`): a small built-in traffic simulation (left-hand
-  traffic, turning movements, right-turners giving way, pedestrians on the
-  zebras) stands in for SUMO, so it runs on any laptop. Every signal change goes
+  traffic, turning movements, pedestrians on the zebras) stands in for SUMO, so it
+  runs on any laptop. Vehicles don't collide. Each pair of paths through the
+  junction has a precomputed conflict zone, and a vehicle won't enter one that is
+  occupied or that someone with right of way is about to use (first in goes
+  first; right-turners wait for a gap of about 2 s in oncoming traffic). No
+  vehicle stops where it would block crossing traffic. As in SUMO, a vehicle stuck
+  in the junction for 40 s is removed, and the event log reports it. Every signal change goes
   through `makutano.control.shield.SafetyShield`, and the rule-based controller is
   `makutano.control.rule_based.choose_phase`.
 - **Frontend** (`makutano/live/static/`): plain HTML, CSS and JavaScript, with no

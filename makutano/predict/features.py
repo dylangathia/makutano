@@ -37,7 +37,7 @@ def _time_features(ts):
     minute = ts.hour * 60 + ts.minute + ts.second / 60
     angle = 2 * np.pi * minute / 1440
     return {"minute_of_day": np.asarray(minute, float), "tod_sin": np.sin(angle),
-            "tod_cos": np.cos(angle), "weekday": np.asarray(ts.weekday, float)}
+            "tod_cos": np.cos(angle), "weekday": np.asarray(ts.day_of_week, float)}
 
 
 def _window_features(arrivals, queue, idx, per_min):

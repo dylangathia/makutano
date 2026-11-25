@@ -120,6 +120,55 @@ def build_route(origin, dest):
 
 ROUTES = {(o, d): build_route(o, d) for o in APPROACHES for d in APPROACHES if o != d}
 
+CLEARANCE = 2.9      # centre lines closer than this mean two vehicles there would touch
+ZONE_PAST_BOX = 8.0  # zones reach this far onto the exit lane, to cover merges
+
+
+def _conflict_zone(r1, r2, step=0.4):
+    """Where routes r1 and r2 come close enough to collide, as (a0, a1) along r1 and
+    (b0, b1) along r2; None if they never do. Only the junction box and the start of
+    the exit lane are searched: before the stop line every lane is separate."""
+    def samples(r):
+        n = int((r.box_out + ZONE_PAST_BOX - r.s_stop) / step) + 1
+        return [(r.s_stop + i * step, r.at(r.s_stop + i * step)) for i in range(n)]
+    p1, p2 = samples(r1), samples(r2)
+    s1 = [s for s, (x, y, _) in p1 if any(math.hypot(x - u, y - w) < CLEARANCE for _, (u, w, _) in p2)]
+    if not s1:
+        return None
+    s2 = [s for s, (x, y, _) in p2 if any(math.hypot(x - u, y - w) < CLEARANCE for _, (u, w, _) in p1)]
+    return min(s1), max(s1), min(s2), max(s2)
+
+
+# ZONES[(origin1, dest1, origin2, dest2)] = (a0, a1, b0, b1) for every pair of different
+# routes that can collide.
+ZONES = {}
+for _k1, _r1 in ROUTES.items():
+    for _k2, _r2 in ROUTES.items():
+        if _k1 < _k2:
+            _z = _conflict_zone(_r1, _r2)
+            if _z:
+                ZONES[_k1 + _k2] = _z
+                ZONES[_k2 + _k1] = (_z[2], _z[3], _z[0], _z[1])
+
+
+def zone(r1, r2):
+    return ZONES.get((r1.origin, r1.dest, r2.origin, r2.dest))
+
+
+def _merge(spans):
+    out = []
+    for a, b in sorted(spans):
+        if out and a <= out[-1][1]:
+            out[-1] = (out[-1][0], max(out[-1][1], b))
+        else:
+            out.append((a, b))
+    return out
+
+
+# BOX_SPANS[(origin, dest)]: the stretches of a route that cross or merge with traffic from
+# other approaches. A vehicle must not come to rest in one ("don't block the box").
+BOX_SPANS = {k: _merge([z[:2] for kk, z in ZONES.items() if kk[:2] == k and kk[2] != k[0]]) for k in ROUTES}
+
 
 def crossing_point(arm, along):
     """A point on the zebra crossing of `arm`; `along` runs across the road."""

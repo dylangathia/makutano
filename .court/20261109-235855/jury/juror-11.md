@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: The one-line pitch is the first thing a stranger reads, and it promises "prove why" when both sides agree the design only shows the evidence around a decision, so the story is clear but wrong, and the project also goes from three parts to four before any of the first three has run.
+DECIDING FACT: The defense concedes that "the 'prove' in the pitch overstates what the verifier does: it checks consistency with the logs, not that the decisions were correct," which means the headline, as stated, misleads the reader.
+WOULD FLIP IF: The pitch were reworded to an honest claim such as "shows the evidence behind every decision," and the case stated plainly that the explain layer is built only after the RL agent and SUMO results exist, so the story stays a three-part pipeline with a verified log on top.

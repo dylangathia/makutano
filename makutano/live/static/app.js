@@ -12,14 +12,14 @@ const SHORT = { north: 'N', south: 'S', east: 'E', west: 'W' };
 const NAME = { north: 'North', south: 'South', east: 'East', west: 'West' };
 const SCOL = { north: 'var(--s1)', south: 'var(--s2)', east: 'var(--s3)', west: 'var(--s4)' };
 const VCOL = { north: '#4d9cf0', south: '#f07a4a', east: '#2fc48d', west: '#f2b225' };  // overlays on the video
-const BOX = { car: '#5ec8ff', matatu: '#ffbe2e', boda_boda: '#ff6fa3', bus: '#a5d86a', truck: '#c2a8ff', tuk_tuk: '#ffe36e', person: '#ffffff' };
+const BOX = { private_car: '#5ec8ff', matatu: '#ffbe2e', boda_boda: '#ff6fa3', truck_bus: '#a5d86a', handcart: '#ffe36e', pedestrian: '#ffffff' };
 const PAINT = {
   car: ['#d8dcdf', '#9ba4a9', '#353c42', '#a33434', '#2c5884', '#e6dfcc', '#5d6f5a', '#c9c9c4'],
   matatu: [['#f2f2f0', '#d6262e'], ['#1d1d1f', '#f6c90e'], ['#f4f0e6', '#1f8f4e'], ['#7a2db0', '#f2f2f2'], ['#e8e8e8', '#2b6fd6'], ['#202020', '#ff5ea8'], ['#f2f2f0', '#ff8c1a'], ['#123c69', '#f2f2f2']],
   boda: ['#c62828', '#202325', '#c62828', '#1e4f9c', '#202325', '#c62828', '#3b3b3b', '#7a1f1f'],
   bus: ['#c79a1b', '#2b6b4e', '#c79a1b', '#8a1c1c', '#2b6b4e', '#c79a1b', '#25507a', '#c79a1b'],
   truck: ['#86694a', '#5a6b78', '#86694a', '#6b6f4a', '#5a6b78', '#86694a', '#9a4b2c', '#5a6b78'],
-  tuktuk: ['#e2c11b', '#2f8a4a', '#e2c11b', '#1f63a8', '#e2c11b', '#e2c11b', '#c43b3b', '#e2c11b'],
+  handcart: ['#9a7448', '#8a6a42', '#a47c4c', '#7f603c', '#9a7448', '#8a6a42', '#a47c4c', '#7f603c'],
 };
 const CAMERA_RANGE = 50; // metres of each approach the queue zone covers
 
@@ -166,6 +166,11 @@ function drawVehicle(x, y, h, ti, paint, stopped) {
   if (T.name === 'boda') {
     ctx.fillStyle = p; ctx.fillRect(-len, -wid / 2, len, wid);
     ctx.fillStyle = '#f3d23a'; ctx.beginPath(); ctx.arc(-len * 0.55, 0, 0.42, 0, 7); ctx.fill();
+  } else if (T.name === 'handcart') {
+    // wooden bed with slats, pushed by a person at the back
+    ctx.fillStyle = p; ctx.fillRect(-len + 0.6, -wid / 2, len - 0.6, wid);
+    ctx.fillStyle = 'rgba(0,0,0,0.25)'; for (let k = -len + 0.9; k < -0.2; k += 0.45) ctx.fillRect(k, -wid / 2, 0.12, wid);
+    ctx.fillStyle = '#e8d3ad'; ctx.beginPath(); ctx.arc(-len + 0.3, 0, 0.32, 0, 7); ctx.fill();
   } else {
     ctx.fillStyle = T.name === 'matatu' ? p[0] : p; ctx.fillRect(-len, -wid / 2, len, wid);
     if (T.name === 'matatu') { ctx.fillStyle = p[1]; ctx.fillRect(-len, -wid * 0.13, len, wid * 0.26); }
@@ -231,7 +236,7 @@ function render(now) {
   for (const v of cur.vehicles) {
     let [id, x, y, h, ti, paint, stopped] = v;
     const p = prev && prev.byId && prev.byId.get(id);
-    if (p && Math.hypot(p[1] - x, p[2] - y) < 30) { x = p[1] + (x - p[1]) * t; y = p[2] + (y - p[2]) * t; h = lerpAngle(p[3], h, t); }
+    if (p && Math.hypot(p[1] - x, p[2] - y) < 8) { x = p[1] + (x - p[1]) * t; y = p[2] + (y - p[2]) * t; h = lerpAngle(p[3], h, t); }
     if (Math.abs(x) > L.view[0] / 2 + 12 || Math.abs(y) > L.view[1] / 2 + 12) continue;
     drawVehicle(x, y, h, ti, paint, stopped);
     drawn.push([id, x, y, h, ti, stopped]);
@@ -254,7 +259,7 @@ function render(now) {
         ctx.fillStyle = col; ctx.fillRect(x0 - 2, y0 - 13, tw, 10.5); ctx.fillStyle = '#111'; ctx.fillText(label, x0 + 0.5, y0 - 5);
       }
     }
-    ctx.strokeStyle = BOX.person; ctx.lineWidth = 1;
+    ctx.strokeStyle = BOX.pedestrian; ctx.lineWidth = 1;
     for (const [x, y] of cur.peds) ctx.strokeRect(px(x) - 4, py(y) - 4, 8, 8);
   }
 }
@@ -297,7 +302,7 @@ function uiFast() {
   const counts = {}; let tot = 0;
   for (const v of f.vehicles) if (Math.abs(v[1]) < L.view[0] / 2 && Math.abs(v[2]) < L.view[1] / 2) { const c = L.types[v[4]].cls; counts[c] = (counts[c] || 0) + 1; tot++; }
   const peds = f.peds.length;
-  $('#hudCounts').textContent = f.camera_ok ? `Tracked ${tot + peds} · car ${counts.car || 0} · matatu ${counts.matatu || 0} · boda ${counts.boda_boda || 0} · bus ${counts.bus || 0} · truck ${counts.truck || 0} · tuk-tuk ${counts.tuk_tuk || 0} · person ${peds}` : 'Tracked: — · detector offline';
+  $('#hudCounts').textContent = f.camera_ok ? `Tracked ${tot + peds} · matatu ${counts.matatu || 0} · boda_boda ${counts.boda_boda || 0} · private_car ${counts.private_car || 0} · truck_bus ${counts.truck_bus || 0} · handcart ${counts.handcart || 0} · pedestrian ${peds}` : 'Tracked: — · detector offline';
   $('#pipeSee').textContent = f.camera_ok ? `YOLOv8s fine-tuned · ByteTrack · ${tot + peds} tracked` : 'Camera offline · using forecast and profile';
   $('#dotSee').className = 'dot' + (f.camera_ok ? '' : ' bad');
   $('#nosignal').hidden = f.camera_ok;

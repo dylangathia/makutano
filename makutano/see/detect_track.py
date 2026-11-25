@@ -3,9 +3,10 @@
     python -m makutano.see.detect_track --video data/raw/pilot.mp4 --out outputs/pilot/tracks.csv
 
 With the default pre-trained COCO weights, COCO classes are mapped onto the
-project's classes. COCO has no matatu class, so matatus come out as
-`bus_matatu` (when detected as buses) or `private_car`; separating them is what
-fine-tuning is for. Fine-tuned weights are used with their own class names.
+project's six classes (makutano/classes.py). COCO has no matatu or handcart
+class, so matatus come out as `truck_bus` (when detected as buses) or
+`private_car`; separating them is what fine-tuning is for. Fine-tuned weights
+are trained on the project's class names and used as they are.
 
 Needs `pip install -r requirements-detect.txt`; run it on a GPU (Colab) for
 anything longer than a short clip.
@@ -16,16 +17,9 @@ from pathlib import Path
 import cv2
 import pandas as pd
 
-TRACK_COLUMNS = ["frame", "t_s", "track_id", "cls", "conf", "x1", "y1", "x2", "y2"]
+from ..classes import COCO_TO_LOCAL
 
-COCO_TO_LOCAL = {
-    0: "pedestrian",
-    1: "bicycle",
-    2: "private_car",
-    3: "boda_boda",
-    5: "bus_matatu",
-    7: "truck",
-}
+TRACK_COLUMNS = ["frame", "t_s", "track_id", "cls", "conf", "x1", "y1", "x2", "y2"]
 
 
 def class_map_for(model):

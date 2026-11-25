@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<edges>
+  <edge id="north_in" from="north" to="J1" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="north_out" from="J1" to="north" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="south_in" from="south" to="J1" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="south_out" from="J1" to="south" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="east_in" from="east" to="J1" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="east_out" from="J1" to="east" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="west_in" from="west" to="J1" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+  <edge id="west_out" from="J1" to="west" numLanes="2" speed="13.89" sidewalkWidth="2.0" />
+</edges>

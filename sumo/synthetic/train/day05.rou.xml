@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+  <vType id="private_car" vClass="passenger" length="4.5" minGap="1.5" maxSpeed="16.7" speedDev="0.1" sigma="0.5" />
+  <vType id="boda_boda" vClass="motorcycle" length="2.0" width="0.8" minGap="0.5" minGapLat="0.3" latAlignment="arbitrary" lcSublane="2.0" lcPushy="0.5" maxSpeed="16.7" speedDev="0.15" />
+  <vType id="matatu" vClass="bus" length="5.5" width="2.0" minGap="1.0" maxSpeed="16.7" speedDev="0.1" />
+  <vType id="truck_bus" vClass="truck" length="9.0" width="2.5" minGap="2.0" maxSpeed="13.9" />
+  <vType id="handcart" vClass="bicycle" length="2.5" width="1.2" minGap="0.5" maxSpeed="1.5" speedDev="0.2" latAlignment="right" />
+  <personFlow id="ped__north__south" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="north_in" to="south_out" />
+  </personFlow>
+  <personFlow id="ped__north__east" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="north_in" to="east_out" />
+  </personFlow>
+  <personFlow id="ped__north__west" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="north_in" to="west_out" />
+  </personFlow>
+  <personFlow id="ped__south__north" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="south_in" to="north_out" />
+  </personFlow>
+  <personFlow id="ped__south__east" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="south_in" to="east_out" />
+  </personFlow>
+  <personFlow id="ped__south__west" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="south_in" to="west_out" />
+  </personFlow>
+  <personFlow id="ped__east__north" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="east_in" to="north_out" />
+  </personFlow>
+  <personFlow id="ped__east__south" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="east_in" to="south_out" />
+  </personFlow>
+  <personFlow id="ped__east__west" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="east_in" to="west_out" />
+  </personFlow>
+  <personFlow id="ped__west__north" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="west_in" to="north_out" />
+  </personFlow>
+  <personFlow id="ped__west__south" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="west_in" to="south_out" />
+  </personFlow>
+  <personFlow id="ped__west__east" begin="0" end="7200" personsPerHour="40.00">
+    <walk from="west_in" to="east_out" />
+  </personFlow>
+  <flow id="east__north__matatu__0" type="matatu" begin="0" end="900" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__private_car__0" type="private_car" begin="0" end="900" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__truck_bus__0" type="truck_bus" begin="0" end="900" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__south__boda_boda__0" type="boda_boda" begin="0" end="900" from="east_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="east__south__matatu__0" type="matatu" begin="0" end="900" from="east_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="east__south__private_car__0" type="private_car" begin="0" end="900" from="east_in" to="south_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="east__south__truck_bus__0" type="truck_bus" begin="0" end="900" from="east_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__west__boda_boda__0" type="boda_boda" begin="0" end="900" from="east_in" to="west_out" departLane="best" departSpeed="max" number="17" />
+  <flow id="east__west__matatu__0" type="matatu" begin="0" end="900" from="east_in" to="west_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="east__west__private_car__0" type="private_car" begin="0" end="900" from="east_in" to="west_out" departLane="best" departSpeed="max" number="29" />
+  <flow id="east__west__truck_bus__0" type="truck_bus" begin="0" end="900" from="east_in" to="west_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="north__east__boda_boda__0" type="boda_boda" begin="0" end="900" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__handcart__0" type="handcart" begin="0" end="900" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__east__matatu__0" type="matatu" begin="0" end="900" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__private_car__0" type="private_car" begin="0" end="900" from="north_in" to="east_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="north__east__truck_bus__0" type="truck_bus" begin="0" end="900" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__south__boda_boda__0" type="boda_boda" begin="0" end="900" from="north_in" to="south_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="north__south__handcart__0" type="handcart" begin="0" end="900" from="north_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__south__matatu__0" type="matatu" begin="0" end="900" from="north_in" to="south_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="north__south__private_car__0" type="private_car" begin="0" end="900" from="north_in" to="south_out" departLane="best" departSpeed="max" number="18" />
+  <flow id="north__south__truck_bus__0" type="truck_bus" begin="0" end="900" from="north_in" to="south_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__west__boda_boda__0" type="boda_boda" begin="0" end="900" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__west__matatu__0" type="matatu" begin="0" end="900" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__private_car__0" type="private_car" begin="0" end="900" from="north_in" to="west_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="south__east__boda_boda__0" type="boda_boda" begin="0" end="900" from="south_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__east__private_car__0" type="private_car" begin="0" end="900" from="south_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__east__truck_bus__0" type="truck_bus" begin="0" end="900" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__north__boda_boda__0" type="boda_boda" begin="0" end="900" from="south_in" to="north_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="south__north__matatu__0" type="matatu" begin="0" end="900" from="south_in" to="north_out" departLane="best" departSpeed="max" number="18" />
+  <flow id="south__north__private_car__0" type="private_car" begin="0" end="900" from="south_in" to="north_out" departLane="best" departSpeed="max" number="24" />
+  <flow id="south__north__truck_bus__0" type="truck_bus" begin="0" end="900" from="south_in" to="north_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="south__west__boda_boda__0" type="boda_boda" begin="0" end="900" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__west__matatu__0" type="matatu" begin="0" end="900" from="south_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__west__private_car__0" type="private_car" begin="0" end="900" from="south_in" to="west_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="south__west__truck_bus__0" type="truck_bus" begin="0" end="900" from="south_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__boda_boda__0" type="boda_boda" begin="0" end="900" from="west_in" to="east_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="west__east__handcart__0" type="handcart" begin="0" end="900" from="west_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__matatu__0" type="matatu" begin="0" end="900" from="west_in" to="east_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="west__east__private_car__0" type="private_car" begin="0" end="900" from="west_in" to="east_out" departLane="best" departSpeed="max" number="34" />
+  <flow id="west__east__truck_bus__0" type="truck_bus" begin="0" end="900" from="west_in" to="east_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="west__north__boda_boda__0" type="boda_boda" begin="0" end="900" from="west_in" to="north_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="west__north__matatu__0" type="matatu" begin="0" end="900" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__north__private_car__0" type="private_car" begin="0" end="900" from="west_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="west__north__truck_bus__0" type="truck_bus" begin="0" end="900" from="west_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__south__boda_boda__0" type="boda_boda" begin="0" end="900" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__matatu__0" type="matatu" begin="0" end="900" from="west_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__south__private_car__0" type="private_car" begin="0" end="900" from="west_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__truck_bus__0" type="truck_bus" begin="0" end="900" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__boda_boda__900" type="boda_boda" begin="900" end="1800" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__matatu__900" type="matatu" begin="900" end="1800" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__private_car__900" type="private_car" begin="900" end="1800" from="east_in" to="north_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="east__north__truck_bus__900" type="truck_bus" begin="900" end="1800" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__boda_boda__900" type="boda_boda" begin="900" end="1800" from="east_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__matatu__900" type="matatu" begin="900" end="1800" from="east_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__private_car__900" type="private_car" begin="900" end="1800" from="east_in" to="south_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="east__south__truck_bus__900" type="truck_bus" begin="900" end="1800" from="east_in" to="south_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="east__west__boda_boda__900" type="boda_boda" begin="900" end="1800" from="east_in" to="west_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="east__west__matatu__900" type="matatu" begin="900" end="1800" from="east_in" to="west_out" departLane="best" departSpeed="max" number="21" />
+  <flow id="east__west__private_car__900" type="private_car" begin="900" end="1800" from="east_in" to="west_out" departLane="best" departSpeed="max" number="49" />
+  <flow id="east__west__truck_bus__900" type="truck_bus" begin="900" end="1800" from="east_in" to="west_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="north__east__boda_boda__900" type="boda_boda" begin="900" end="1800" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__matatu__900" type="matatu" begin="900" end="1800" from="north_in" to="east_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="north__east__private_car__900" type="private_car" begin="900" end="1800" from="north_in" to="east_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__east__truck_bus__900" type="truck_bus" begin="900" end="1800" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__south__boda_boda__900" type="boda_boda" begin="900" end="1800" from="north_in" to="south_out" departLane="best" departSpeed="max" number="20" />
+  <flow id="north__south__matatu__900" type="matatu" begin="900" end="1800" from="north_in" to="south_out" departLane="best" departSpeed="max" number="15" />
+  <flow id="north__south__private_car__900" type="private_car" begin="900" end="1800" from="north_in" to="south_out" departLane="best" departSpeed="max" number="22" />
+  <flow id="north__south__truck_bus__900" type="truck_bus" begin="900" end="1800" from="north_in" to="south_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="north__west__boda_boda__900" type="boda_boda" begin="900" end="1800" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__matatu__900" type="matatu" begin="900" end="1800" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__private_car__900" type="private_car" begin="900" end="1800" from="north_in" to="west_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="north__west__truck_bus__900" type="truck_bus" begin="900" end="1800" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__boda_boda__900" type="boda_boda" begin="900" end="1800" from="south_in" to="east_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="south__east__handcart__900" type="handcart" begin="900" end="1800" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__matatu__900" type="matatu" begin="900" end="1800" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__private_car__900" type="private_car" begin="900" end="1800" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__north__boda_boda__900" type="boda_boda" begin="900" end="1800" from="south_in" to="north_out" departLane="best" departSpeed="max" number="19" />
+  <flow id="south__north__matatu__900" type="matatu" begin="900" end="1800" from="south_in" to="north_out" departLane="best" departSpeed="max" number="22" />
+  <flow id="south__north__private_car__900" type="private_car" begin="900" end="1800" from="south_in" to="north_out" departLane="best" departSpeed="max" number="26" />
+  <flow id="south__north__truck_bus__900" type="truck_bus" begin="900" end="1800" from="south_in" to="north_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__west__boda_boda__900" type="boda_boda" begin="900" end="1800" from="south_in" to="west_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="south__west__matatu__900" type="matatu" begin="900" end="1800" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__west__private_car__900" type="private_car" begin="900" end="1800" from="south_in" to="west_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__west__truck_bus__900" type="truck_bus" begin="900" end="1800" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__east__boda_boda__900" type="boda_boda" begin="900" end="1800" from="west_in" to="east_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="west__east__matatu__900" type="matatu" begin="900" end="1800" from="west_in" to="east_out" departLane="best" departSpeed="max" number="18" />
+  <flow id="west__east__private_car__900" type="private_car" begin="900" end="1800" from="west_in" to="east_out" departLane="best" departSpeed="max" number="45" />
+  <flow id="west__east__truck_bus__900" type="truck_bus" begin="900" end="1800" from="west_in" to="east_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="west__north__boda_boda__900" type="boda_boda" begin="900" end="1800" from="west_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__north__matatu__900" type="matatu" begin="900" end="1800" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__north__private_car__900" type="private_car" begin="900" end="1800" from="west_in" to="north_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="west__north__truck_bus__900" type="truck_bus" begin="900" end="1800" from="west_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__south__boda_boda__900" type="boda_boda" begin="900" end="1800" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__private_car__900" type="private_car" begin="900" end="1800" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__matatu__1800" type="matatu" begin="1800" end="2700" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__private_car__1800" type="private_car" begin="1800" end="2700" from="east_in" to="north_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="east__north__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__south__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="east_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__matatu__1800" type="matatu" begin="1800" end="2700" from="east_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="east__south__private_car__1800" type="private_car" begin="1800" end="2700" from="east_in" to="south_out" departLane="best" departSpeed="max" number="15" />
+  <flow id="east__south__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="east_in" to="south_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="east__west__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="east_in" to="west_out" departLane="best" departSpeed="max" number="26" />
+  <flow id="east__west__handcart__1800" type="handcart" begin="1800" end="2700" from="east_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__west__matatu__1800" type="matatu" begin="1800" end="2700" from="east_in" to="west_out" departLane="best" departSpeed="max" number="25" />
+  <flow id="east__west__private_car__1800" type="private_car" begin="1800" end="2700" from="east_in" to="west_out" departLane="best" departSpeed="max" number="65" />
+  <flow id="east__west__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="east_in" to="west_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="north__east__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__east__matatu__1800" type="matatu" begin="1800" end="2700" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__private_car__1800" type="private_car" begin="1800" end="2700" from="north_in" to="east_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="north__east__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__south__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="north_in" to="south_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="north__south__matatu__1800" type="matatu" begin="1800" end="2700" from="north_in" to="south_out" departLane="best" departSpeed="max" number="15" />
+  <flow id="north__south__private_car__1800" type="private_car" begin="1800" end="2700" from="north_in" to="south_out" departLane="best" departSpeed="max" number="29" />
+  <flow id="north__south__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="north_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="north__west__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__private_car__1800" type="private_car" begin="1800" end="2700" from="north_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__west__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__matatu__1800" type="matatu" begin="1800" end="2700" from="south_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__east__private_car__1800" type="private_car" begin="1800" end="2700" from="south_in" to="east_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="south__east__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__north__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="south_in" to="north_out" departLane="best" departSpeed="max" number="25" />
+  <flow id="south__north__handcart__1800" type="handcart" begin="1800" end="2700" from="south_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__north__matatu__1800" type="matatu" begin="1800" end="2700" from="south_in" to="north_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="south__north__private_car__1800" type="private_car" begin="1800" end="2700" from="south_in" to="north_out" departLane="best" departSpeed="max" number="45" />
+  <flow id="south__north__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="south_in" to="north_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="south__west__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="south_in" to="west_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__west__matatu__1800" type="matatu" begin="1800" end="2700" from="south_in" to="west_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="south__west__private_car__1800" type="private_car" begin="1800" end="2700" from="south_in" to="west_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="south__west__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="south_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="west_in" to="east_out" departLane="best" departSpeed="max" number="21" />
+  <flow id="west__east__matatu__1800" type="matatu" begin="1800" end="2700" from="west_in" to="east_out" departLane="best" departSpeed="max" number="22" />
+  <flow id="west__east__private_car__1800" type="private_car" begin="1800" end="2700" from="west_in" to="east_out" departLane="best" departSpeed="max" number="46" />
+  <flow id="west__east__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="west_in" to="east_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__north__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="west_in" to="north_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="west__north__matatu__1800" type="matatu" begin="1800" end="2700" from="west_in" to="north_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="west__north__private_car__1800" type="private_car" begin="1800" end="2700" from="west_in" to="north_out" departLane="best" departSpeed="max" number="19" />
+  <flow id="west__north__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="west_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__south__boda_boda__1800" type="boda_boda" begin="1800" end="2700" from="west_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__private_car__1800" type="private_car" begin="1800" end="2700" from="west_in" to="south_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="west__south__truck_bus__1800" type="truck_bus" begin="1800" end="2700" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="east_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__north__handcart__2700" type="handcart" begin="2700" end="3600" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__matatu__2700" type="matatu" begin="2700" end="3600" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__private_car__2700" type="private_car" begin="2700" end="3600" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="east_in" to="south_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="east__south__matatu__2700" type="matatu" begin="2700" end="3600" from="east_in" to="south_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="east__south__private_car__2700" type="private_car" begin="2700" end="3600" from="east_in" to="south_out" departLane="best" departSpeed="max" number="14" />
+  <flow id="east__south__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="east_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__west__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="east_in" to="west_out" departLane="best" departSpeed="max" number="28" />
+  <flow id="east__west__handcart__2700" type="handcart" begin="2700" end="3600" from="east_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__west__matatu__2700" type="matatu" begin="2700" end="3600" from="east_in" to="west_out" departLane="best" departSpeed="max" number="27" />
+  <flow id="east__west__private_car__2700" type="private_car" begin="2700" end="3600" from="east_in" to="west_out" departLane="best" departSpeed="max" number="42" />
+  <flow id="east__west__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="east_in" to="west_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="north__east__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__east__handcart__2700" type="handcart" begin="2700" end="3600" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__east__matatu__2700" type="matatu" begin="2700" end="3600" from="north_in" to="east_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="north__east__private_car__2700" type="private_car" begin="2700" end="3600" from="north_in" to="east_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="north__east__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__south__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="north_in" to="south_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="north__south__matatu__2700" type="matatu" begin="2700" end="3600" from="north_in" to="south_out" departLane="best" departSpeed="max" number="23" />
+  <flow id="north__south__private_car__2700" type="private_car" begin="2700" end="3600" from="north_in" to="south_out" departLane="best" departSpeed="max" number="39" />
+  <flow id="north__south__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="north_in" to="south_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="north__west__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="north_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__west__private_car__2700" type="private_car" begin="2700" end="3600" from="north_in" to="west_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="north__west__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__matatu__2700" type="matatu" begin="2700" end="3600" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__private_car__2700" type="private_car" begin="2700" end="3600" from="south_in" to="east_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="south__east__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="south_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__north__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="south_in" to="north_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="south__north__matatu__2700" type="matatu" begin="2700" end="3600" from="south_in" to="north_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="south__north__private_car__2700" type="private_car" begin="2700" end="3600" from="south_in" to="north_out" departLane="best" departSpeed="max" number="35" />
+  <flow id="south__north__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="south_in" to="north_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__west__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="south_in" to="west_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="south__west__matatu__2700" type="matatu" begin="2700" end="3600" from="south_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__west__private_car__2700" type="private_car" begin="2700" end="3600" from="south_in" to="west_out" departLane="best" departSpeed="max" number="14" />
+  <flow id="south__west__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="south_in" to="west_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="west__east__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="west_in" to="east_out" departLane="best" departSpeed="max" number="26" />
+  <flow id="west__east__handcart__2700" type="handcart" begin="2700" end="3600" from="west_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__matatu__2700" type="matatu" begin="2700" end="3600" from="west_in" to="east_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="west__east__private_car__2700" type="private_car" begin="2700" end="3600" from="west_in" to="east_out" departLane="best" departSpeed="max" number="43" />
+  <flow id="west__east__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="west_in" to="east_out" departLane="best" departSpeed="max" number="18" />
+  <flow id="west__north__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="west_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__north__handcart__2700" type="handcart" begin="2700" end="3600" from="west_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__north__matatu__2700" type="matatu" begin="2700" end="3600" from="west_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="west__north__private_car__2700" type="private_car" begin="2700" end="3600" from="west_in" to="north_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="west__north__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="west_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__south__boda_boda__2700" type="boda_boda" begin="2700" end="3600" from="west_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__matatu__2700" type="matatu" begin="2700" end="3600" from="west_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__south__private_car__2700" type="private_car" begin="2700" end="3600" from="west_in" to="south_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="west__south__truck_bus__2700" type="truck_bus" begin="2700" end="3600" from="west_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__matatu__3600" type="matatu" begin="3600" end="4500" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__private_car__3600" type="private_car" begin="3600" end="4500" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="east_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__south__matatu__3600" type="matatu" begin="3600" end="4500" from="east_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__south__private_car__3600" type="private_car" begin="3600" end="4500" from="east_in" to="south_out" departLane="best" departSpeed="max" number="14" />
+  <flow id="east__south__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__west__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="east_in" to="west_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="east__west__matatu__3600" type="matatu" begin="3600" end="4500" from="east_in" to="west_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="east__west__private_car__3600" type="private_car" begin="3600" end="4500" from="east_in" to="west_out" departLane="best" departSpeed="max" number="44" />
+  <flow id="east__west__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="east_in" to="west_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="north__east__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__private_car__3600" type="private_car" begin="3600" end="4500" from="north_in" to="east_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="north__east__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__south__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="north_in" to="south_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="north__south__matatu__3600" type="matatu" begin="3600" end="4500" from="north_in" to="south_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="north__south__private_car__3600" type="private_car" begin="3600" end="4500" from="north_in" to="south_out" departLane="best" departSpeed="max" number="19" />
+  <flow id="north__south__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="north_in" to="south_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="north__west__matatu__3600" type="matatu" begin="3600" end="4500" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__west__private_car__3600" type="private_car" begin="3600" end="4500" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__matatu__3600" type="matatu" begin="3600" end="4500" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__private_car__3600" type="private_car" begin="3600" end="4500" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__north__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="south_in" to="north_out" departLane="best" departSpeed="max" number="27" />
+  <flow id="south__north__handcart__3600" type="handcart" begin="3600" end="4500" from="south_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__north__matatu__3600" type="matatu" begin="3600" end="4500" from="south_in" to="north_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="south__north__private_car__3600" type="private_car" begin="3600" end="4500" from="south_in" to="north_out" departLane="best" departSpeed="max" number="29" />
+  <flow id="south__north__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="south_in" to="north_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="south__west__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="south_in" to="west_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="south__west__matatu__3600" type="matatu" begin="3600" end="4500" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__west__private_car__3600" type="private_car" begin="3600" end="4500" from="south_in" to="west_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__west__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="south_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="west_in" to="east_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__east__handcart__3600" type="handcart" begin="3600" end="4500" from="west_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__matatu__3600" type="matatu" begin="3600" end="4500" from="west_in" to="east_out" departLane="best" departSpeed="max" number="17" />
+  <flow id="west__east__private_car__3600" type="private_car" begin="3600" end="4500" from="west_in" to="east_out" departLane="best" departSpeed="max" number="39" />
+  <flow id="west__east__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="west_in" to="east_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__north__boda_boda__3600" type="boda_boda" begin="3600" end="4500" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__north__handcart__3600" type="handcart" begin="3600" end="4500" from="west_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__north__matatu__3600" type="matatu" begin="3600" end="4500" from="west_in" to="north_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="west__north__private_car__3600" type="private_car" begin="3600" end="4500" from="west_in" to="north_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__north__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="west_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__matatu__3600" type="matatu" begin="3600" end="4500" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__private_car__3600" type="private_car" begin="3600" end="4500" from="west_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__truck_bus__3600" type="truck_bus" begin="3600" end="4500" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="east_in" to="north_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="east__north__matatu__4500" type="matatu" begin="4500" end="5400" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__private_car__4500" type="private_car" begin="4500" end="5400" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__south__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__matatu__4500" type="matatu" begin="4500" end="5400" from="east_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__private_car__4500" type="private_car" begin="4500" end="5400" from="east_in" to="south_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="east__south__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="east_in" to="south_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="east__west__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="east_in" to="west_out" departLane="best" departSpeed="max" number="19" />
+  <flow id="east__west__matatu__4500" type="matatu" begin="4500" end="5400" from="east_in" to="west_out" departLane="best" departSpeed="max" number="17" />
+  <flow id="east__west__private_car__4500" type="private_car" begin="4500" end="5400" from="east_in" to="west_out" departLane="best" departSpeed="max" number="38" />
+  <flow id="east__west__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="east_in" to="west_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__east__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="north_in" to="east_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="north__east__matatu__4500" type="matatu" begin="4500" end="5400" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__east__private_car__4500" type="private_car" begin="4500" end="5400" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__south__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="north_in" to="south_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__south__matatu__4500" type="matatu" begin="4500" end="5400" from="north_in" to="south_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="north__south__private_car__4500" type="private_car" begin="4500" end="5400" from="north_in" to="south_out" departLane="best" departSpeed="max" number="24" />
+  <flow id="north__south__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="north_in" to="south_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="north__west__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__west__private_car__4500" type="private_car" begin="4500" end="5400" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__west__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__private_car__4500" type="private_car" begin="4500" end="5400" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__north__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="south_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="south__north__matatu__4500" type="matatu" begin="4500" end="5400" from="south_in" to="north_out" departLane="best" departSpeed="max" number="16" />
+  <flow id="south__north__private_car__4500" type="private_car" begin="4500" end="5400" from="south_in" to="north_out" departLane="best" departSpeed="max" number="26" />
+  <flow id="south__north__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="south_in" to="north_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="south__west__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="south_in" to="west_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="south__west__matatu__4500" type="matatu" begin="4500" end="5400" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__west__private_car__4500" type="private_car" begin="4500" end="5400" from="south_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__east__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="west_in" to="east_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__east__handcart__4500" type="handcart" begin="4500" end="5400" from="west_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__matatu__4500" type="matatu" begin="4500" end="5400" from="west_in" to="east_out" departLane="best" departSpeed="max" number="15" />
+  <flow id="west__east__private_car__4500" type="private_car" begin="4500" end="5400" from="west_in" to="east_out" departLane="best" departSpeed="max" number="36" />
+  <flow id="west__east__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="west_in" to="east_out" departLane="best" departSpeed="max" number="6" />
+  <flow id="west__north__boda_boda__4500" type="boda_boda" begin="4500" end="5400" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__north__matatu__4500" type="matatu" begin="4500" end="5400" from="west_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="west__north__private_car__4500" type="private_car" begin="4500" end="5400" from="west_in" to="north_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="west__north__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__matatu__4500" type="matatu" begin="4500" end="5400" from="west_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__south__private_car__4500" type="private_car" begin="4500" end="5400" from="west_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="west__south__truck_bus__4500" type="truck_bus" begin="4500" end="5400" from="west_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__matatu__5400" type="matatu" begin="5400" end="6300" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__north__private_car__5400" type="private_car" begin="5400" end="6300" from="east_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="east__north__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="east_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__south__matatu__5400" type="matatu" begin="5400" end="6300" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__private_car__5400" type="private_car" begin="5400" end="6300" from="east_in" to="south_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="east__west__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="east_in" to="west_out" departLane="best" departSpeed="max" number="19" />
+  <flow id="east__west__matatu__5400" type="matatu" begin="5400" end="6300" from="east_in" to="west_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="east__west__private_car__5400" type="private_car" begin="5400" end="6300" from="east_in" to="west_out" departLane="best" departSpeed="max" number="38" />
+  <flow id="east__west__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="east_in" to="west_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__east__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__east__matatu__5400" type="matatu" begin="5400" end="6300" from="north_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__east__private_car__5400" type="private_car" begin="5400" end="6300" from="north_in" to="east_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__east__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__south__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="north_in" to="south_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="north__south__matatu__5400" type="matatu" begin="5400" end="6300" from="north_in" to="south_out" departLane="best" departSpeed="max" number="11" />
+  <flow id="north__south__private_car__5400" type="private_car" begin="5400" end="6300" from="north_in" to="south_out" departLane="best" departSpeed="max" number="22" />
+  <flow id="north__south__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="north_in" to="south_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="north__west__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="north_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__west__matatu__5400" type="matatu" begin="5400" end="6300" from="north_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="north__west__private_car__5400" type="private_car" begin="5400" end="6300" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__matatu__5400" type="matatu" begin="5400" end="6300" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__private_car__5400" type="private_car" begin="5400" end="6300" from="south_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__east__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__north__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="south_in" to="north_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="south__north__matatu__5400" type="matatu" begin="5400" end="6300" from="south_in" to="north_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="south__north__private_car__5400" type="private_car" begin="5400" end="6300" from="south_in" to="north_out" departLane="best" departSpeed="max" number="17" />
+  <flow id="south__north__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="south_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__west__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="south_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__west__matatu__5400" type="matatu" begin="5400" end="6300" from="south_in" to="west_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__west__private_car__5400" type="private_car" begin="5400" end="6300" from="south_in" to="west_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="south__west__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="south_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="west_in" to="east_out" departLane="best" departSpeed="max" number="14" />
+  <flow id="west__east__handcart__5400" type="handcart" begin="5400" end="6300" from="west_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__east__matatu__5400" type="matatu" begin="5400" end="6300" from="west_in" to="east_out" departLane="best" departSpeed="max" number="14" />
+  <flow id="west__east__private_car__5400" type="private_car" begin="5400" end="6300" from="west_in" to="east_out" departLane="best" departSpeed="max" number="36" />
+  <flow id="west__east__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="west_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__north__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="west_in" to="north_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="west__north__matatu__5400" type="matatu" begin="5400" end="6300" from="west_in" to="north_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="west__north__private_car__5400" type="private_car" begin="5400" end="6300" from="west_in" to="north_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="west__north__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="west_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__south__boda_boda__5400" type="boda_boda" begin="5400" end="6300" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__private_car__5400" type="private_car" begin="5400" end="6300" from="west_in" to="south_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__south__truck_bus__5400" type="truck_bus" begin="5400" end="6300" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__matatu__6300" type="matatu" begin="6300" end="7200" from="east_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="east__north__private_car__6300" type="private_car" begin="6300" end="7200" from="east_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__north__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="east_in" to="north_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__matatu__6300" type="matatu" begin="6300" end="7200" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__south__private_car__6300" type="private_car" begin="6300" end="7200" from="east_in" to="south_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="east__south__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="east_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="east__west__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="east_in" to="west_out" departLane="best" departSpeed="max" number="18" />
+  <flow id="east__west__handcart__6300" type="handcart" begin="6300" end="7200" from="east_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="east__west__matatu__6300" type="matatu" begin="6300" end="7200" from="east_in" to="west_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="east__west__private_car__6300" type="private_car" begin="6300" end="7200" from="east_in" to="west_out" departLane="best" departSpeed="max" number="24" />
+  <flow id="east__west__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="east_in" to="west_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="north__east__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="north_in" to="east_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__east__matatu__6300" type="matatu" begin="6300" end="7200" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__east__private_car__6300" type="private_car" begin="6300" end="7200" from="north_in" to="east_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="north__east__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="north_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__south__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="north_in" to="south_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="north__south__matatu__6300" type="matatu" begin="6300" end="7200" from="north_in" to="south_out" departLane="best" departSpeed="max" number="9" />
+  <flow id="north__south__private_car__6300" type="private_car" begin="6300" end="7200" from="north_in" to="south_out" departLane="best" departSpeed="max" number="20" />
+  <flow id="north__south__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="north_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="north__west__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="north_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="north__west__matatu__6300" type="matatu" begin="6300" end="7200" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="north__west__private_car__6300" type="private_car" begin="6300" end="7200" from="north_in" to="west_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="north__west__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="north_in" to="west_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__matatu__6300" type="matatu" begin="6300" end="7200" from="south_in" to="east_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="south__east__private_car__6300" type="private_car" begin="6300" end="7200" from="south_in" to="east_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="south__north__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="south_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="south__north__matatu__6300" type="matatu" begin="6300" end="7200" from="south_in" to="north_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="south__north__private_car__6300" type="private_car" begin="6300" end="7200" from="south_in" to="north_out" departLane="best" departSpeed="max" number="23" />
+  <flow id="south__north__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="south_in" to="north_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="south__west__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="south_in" to="west_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="south__west__matatu__6300" type="matatu" begin="6300" end="7200" from="south_in" to="west_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="south__west__private_car__6300" type="private_car" begin="6300" end="7200" from="south_in" to="west_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__east__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="west_in" to="east_out" departLane="best" departSpeed="max" number="13" />
+  <flow id="west__east__matatu__6300" type="matatu" begin="6300" end="7200" from="west_in" to="east_out" departLane="best" departSpeed="max" number="12" />
+  <flow id="west__east__private_car__6300" type="private_car" begin="6300" end="7200" from="west_in" to="east_out" departLane="best" departSpeed="max" number="30" />
+  <flow id="west__east__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="west_in" to="east_out" departLane="best" departSpeed="max" number="8" />
+  <flow id="west__north__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="west_in" to="north_out" departLane="best" departSpeed="max" number="7" />
+  <flow id="west__north__handcart__6300" type="handcart" begin="6300" end="7200" from="west_in" to="north_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__north__matatu__6300" type="matatu" begin="6300" end="7200" from="west_in" to="north_out" departLane="best" departSpeed="max" number="3" />
+  <flow id="west__north__private_car__6300" type="private_car" begin="6300" end="7200" from="west_in" to="north_out" departLane="best" departSpeed="max" number="10" />
+  <flow id="west__north__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="west_in" to="north_out" departLane="best" departSpeed="max" number="5" />
+  <flow id="west__south__boda_boda__6300" type="boda_boda" begin="6300" end="7200" from="west_in" to="south_out" departLane="best" departSpeed="max" number="1" />
+  <flow id="west__south__matatu__6300" type="matatu" begin="6300" end="7200" from="west_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+  <flow id="west__south__private_car__6300" type="private_car" begin="6300" end="7200" from="west_in" to="south_out" departLane="best" departSpeed="max" number="4" />
+  <flow id="west__south__truck_bus__6300" type="truck_bus" begin="6300" end="7200" from="west_in" to="south_out" departLane="best" departSpeed="max" number="2" />
+</routes>

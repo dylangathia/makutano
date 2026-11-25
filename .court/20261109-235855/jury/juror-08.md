@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: Every number here would come from a sample of zero: no footage, no trained agent and no SUMO run exist yet. The verifier's headline catch rate would also be measured on errors its own author injected, so the record gives me no base rate that supports adding a fourth module or a claim to "prove why."
+DECIDING FACT: "Detection, RL training and the SUMO experiments have not run yet ... and no footage has been recorded." The proposed layer would be logging and explaining a stand-in pressure rule, not the RL policy the pitch names.
+WOULD FLIP IF: The core pipeline had already produced real results (trained RL agent decisions in calibrated SUMO from recorded footage), the pitch were reworded to "shows the evidence behind every decision," and the verifier were tested on a held-out or third-party set of fabricated answers.

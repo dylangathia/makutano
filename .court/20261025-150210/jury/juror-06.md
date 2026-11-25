@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: As a builder I can see the recording and the See run working, but the comparison as described feeds arrivals from a detector that has never run into a stand-in microsimulation driven by a stand-in rule, and checks it against an undefined "roughly" with no hand counts, so a mismatch or a "difference" could come from any of those parts and nobody could tell which.
+DECIDING FACT: Step 3 replays "those exact arrivals" in "a small built-in traffic microsimulation standing in for SUMO," while the record never says whether arrivals are taken upstream or at the stop line, where today's signal has already shaped them; that means the step 4 match on today's plan cannot vouch for the agent's counterfactual plan.
+WOULD FLIP IF: The plan logged arrivals upstream of the queue, checked See against hand counts, ran the replay in the calibrated SUMO model with the trained agent, and fixed the "today's plan" match tolerance before running.

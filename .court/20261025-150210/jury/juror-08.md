@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: A single 20-minute clip gives one difference with no error bar, and the only yardstick for separating real controller effect from replay and simulator error is a "roughly" match that nobody has defined, so whatever gap appears cannot be told apart from noise, and once shown at a viva it will be read as a result.
+DECIDING FACT: The step-4 acceptance test is only that simulated "today's plan" reproduces "roughly the delays the video showed," with no tolerance set, on one 20-minute sample whose delays come from a See module that has never run.
+WOULD FLIP IF: The plan fixed a numeric tolerance for the step-4 match before recording and committed to report the agent-versus-today gap only when it is larger than that tolerance (i.e. larger than the replay's own measured error).

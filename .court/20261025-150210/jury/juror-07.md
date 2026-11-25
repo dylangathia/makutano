@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: One person is doing all the work here, and the main product isn't on the shelf yet because SUMO isn't installed and nothing is trained, so spending the next free Monday on a side demo that pits a stand-in rule against an unchecked count is stocking the window before the shop has anything to sell.
+DECIDING FACT: The record says "the detection, RL training and experiments have not run yet, because SUMO, Gymnasium and Stable-Baselines3 are not installed," and the "RL agent" in the console is "a stand-in rule," so run as described, the comparison doesn't test the project's model at all.
+WOULD FLIP IF: The plan were set to run only after the trained agent and calibrated SUMO model exist, with a hand count against the See output and a "roughly matches" tolerance fixed in advance, and with camera access and the junction's real control mode confirmed before any recording time is spent.

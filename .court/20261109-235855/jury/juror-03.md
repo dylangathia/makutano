@@ -1,0 +1,4 @@
+VOTE: GUILTY
+REASON: If I were the rival pitching against this tomorrow, I would not need to copy it: I would ask the examiners to see the trained RL agent whose decisions it "can prove", and because that agent has never run and the logs hold only inputs and outputs, not the policy's reasons, the headline claim falls apart before I have to say anything else.
+DECIDING FACT: "Detection, RL training and the SUMO experiments have not run yet", and the console's "RL agent" is a stand-in pressure rule, so the explain-why layer as described would be explaining a heuristic while being pitched as proof of why an RL agent acted.
+WOULD FLIP IF: the case committed to building the explain layer only after the trained RL agent and SUMO results exist, and reworded the pitch from "can prove why it made every decision" to "can show the evidence behind every decision", with an error set for the verifier that someone other than the author wrote.
